@@ -7,7 +7,7 @@ const app = express();
 
 app.get('/coffee', (_req, res) => res.status(418).end());
 
-app.use(express.json())
+app.use(express.json());
 
 app.use('/login', loginRouter);
 app.use('/register', userRouter);

@@ -1,7 +1,7 @@
 const { jwtDecript } = require('../auth/jwt');
 const { findById } = require('../service/userService');
 
-export async function validateToken(req, res, next) {
+async function validateToken(req, res, next) {
   try {
     const { token } = req.header('Authorization');
 
@@ -23,3 +23,5 @@ export async function validateToken(req, res, next) {
     next(error);
   }
 }
+
+module.exports = validateToken;

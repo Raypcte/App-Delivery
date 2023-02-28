@@ -7,8 +7,10 @@ function errorHandler(err, _req, res, next) {
       break;
     case 404:
       res.status(404).json(err.message);
+      break;
     case 401:
       res.status(401).josn(err.message);
+      break;
     default:
       res.status(500).json(err.message);
       break;

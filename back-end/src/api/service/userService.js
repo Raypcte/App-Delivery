@@ -6,30 +6,28 @@ const { jwtAuthenticate } = require('../auth/jwt');
 const userModel = require('../model/userModel');
 
 const validateCredentials = (user) => {
-  const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+  const emailRegex = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g;
 
   if (!emailRegex.test(user.email)) throw new BadRequestError('email inválido');
 
   if (user.password.length < 6) throw new BadRequestError('senha inválida');
-}
+};
 
-const generateToken = (user) => {
-  return jwtAuthenticate({
+const generateToken = (user) => jwtAuthenticate({
     id: user.id,
     email: user.email,
     role: user.role,
   });
-}
 
 const findById = async (id) => {
   const user = await userModel.findById(id);
   return user;
-}
+};
 
 const findByEmail = async (email) => {
   const user = await userModel.findByEmail(email);
   return user;
-}
+};
 
 const register = async (user) => {
   validateCredentials(user);
@@ -41,22 +39,22 @@ const register = async (user) => {
   if (!newUser) throw new NotFoundError('usuário não encontrado');
 
   return generateToken(user);
-}
+};
 
 const login = async (credentials) => {
-  validateCredentials(credentials)
-  console.log('service before db');
+  validateCredentials(credentials);
+
   const user = await findByEmail(credentials.email);
-  console.log('service after db');
+
   if (!user) throw new NotFoundError('usuário não encontrado');
   if (user.password !== md5(credentials.password)) throw new UnauthorizedError('senha inválida'); 
 
   return generateToken(user);
-}
+};
 
 module.exports = {
   findByEmail,
   findById,
   register,
-  login
-}
+  login,
+};

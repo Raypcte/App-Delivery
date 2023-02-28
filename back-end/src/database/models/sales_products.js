@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
       as: 'sale',
       primaryKey: 'id'
     })
-    
+
     salesProducts.hasMany(models.products, {
       as: 'product', 
       primaryKey: 'id',

@@ -1,32 +1,28 @@
 'use strict';
-import { Model, INTEGER, STRING, DECIMAL } from 'sequelize';
-import db from '.';
+module.exports = (sequelize, DataTypes) => {
+  const product = sequelize.define('products', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    price: {
+      allowNull: false,
+      type: DataTypes.DECIMAL,
+    },
+    urlImage: {
+      field: 'url_image',
+      type: DataTypes.STRING,
+    }
+  }, {
+    modelName: 'products',
+    timestamps: false,
+  });
 
-class Products extends Model {}
-
-Products.init({
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: INTEGER,
-  },
-  name: {
-    allowNull: false,
-    type: STRING,
-  },
-  price: {
-    allowNull: false,
-    type: DECIMAL,
-  },
-  urlImage: {
-    field: 'url_image',
-    type: STRING,
-  }
-}, {
-  sequelize: db,
-  modelName: 'products',
-  timestamps: false,
-});
-
-export default Products;
+  return product;
+}

@@ -1,71 +1,66 @@
 'use strict';
-import { Model, INTEGER, STRING, DECIMAL } from 'sequelize';
-import db from '.';
-import User from './users';
-
-class Sales extends Model {}
-
-Sales.init({
-  id: {
-    allowNull: false,
-    autoIncrement: true,
-    primaryKey: true,
-    type: INTEGER
-  },
-  userId: {
-    type: INTEGER,
-    allowNull: false,
-    field: 'user_id',
-    references: {
-      model: 'User',
-      key: 'id',
+module.exports = (sequelize, DataTypes) => {
+  const sale = sequelize.define('sales', {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
     },
-  },
-  sellerId: {
-    type: INTEGER,
-    allowNull: false,
-    field: 'seller_id',
-    references: {
-      model: 'User',
-      key: 'id',
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'user_id',
+      references: {
+        model: 'User',
+        key: 'id',
+      },
     },
-  },
-  totalPrice: {
-    type: DECIMAL,
-    allowNull: false,
-    field: 'total_price',
-  },
-  deliveryAdress: {
-    type: STRING,
-    allowNull: false,
-    field: 'delivery_adress',
-  },
-  deliveryNumber: {
-    type: STRING,
-    allowNull: false,
-    field: 'delivery_number',
-  },
-  saleDate: {
-    type: DATE,
-    allowNull: false,
-    field: 'sale_date',
-  },
-  status: {
-    type: STRING,
-    allowNull: false,
+    sellerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      field: 'seller_id',
+      references: {
+        model: 'User',
+        key: 'id',
+      },
+    },
+    totalPrice: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      field: 'total_price',
+    },
+    deliveryAdress: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      field: 'delivery_adress',
+    },
+    deliveryNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      field: 'delivery_number',
+    },
+    saleDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      field: 'sale_date',
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    }
+  }, {
+    modelName: 'sales',
+    timestamps: false,
+  });
+
+  sale.associate = (models) => {
+    sale.hasMany(models.user, { foreignKey: 'userId', as: 'user' });
+    sale.hasMany(models.user, { foreignKey: 'sellerId', as: 'seller' });
+
+    models.user.belongsTo(sale, {foreignKey: 'userId', as: 'user' });
+    models.user.belongsTo(sale, { foreignKey: 'sellerId', as: 'seller' });
   }
-}, {
-  sequelize: db,
-  modelName: 'sales',
-  timestamps: false,
-});
 
-Sales.hasOne(User, { foreignKey: 'id', as: 'userId' });
-Sales.hasOne(User, { foreignKey: 'id', as: 'sellerId' });
-
-User.belongsTo(Sales, {foreignKey: 'id', as: 'userId' });
-User.belongsTo(Sales, { foreignKey: 'id', as: 'sellerId' });
-
-
-export default Sales;
-
+  return sale;
+}

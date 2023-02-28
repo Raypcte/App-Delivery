@@ -47,6 +47,7 @@ const login = async (credentials) => {
   const user = await findByEmail(credentials.email);
 
   if (!user) throw new NotFoundError('usuário não encontrado');
+  console.log(user.password, md5(credentials.password));
   if (user.password !== md5(credentials.password)) throw new UnauthorizedError('senha inválida'); 
 
   return generateToken(user);

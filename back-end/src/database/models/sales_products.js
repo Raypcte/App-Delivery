@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const salesProducts = sequelize.define('Sales_Products', {
+  const salesProducts = sequelize.define('sales_products', {
     sale_id: {
       allowNull: false,
       primaryKey: true,
@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
   }, {
-    modelName: 'Sales_Products',
+    modelName: 'sales_products',
     timestamps: false,
   });
 

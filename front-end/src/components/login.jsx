@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from '../utils/axiosIstance';
 
 const MIN_LENGTH = 6;
 const INITIAL_STATE = {
@@ -44,7 +45,11 @@ class Login extends React.Component {
   };
 
   handlebuttonLogin = () => {
-
+    try {
+      axios.get('coffee').then((e) => console.log(e));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   validateEmail = (email) => {

@@ -2,7 +2,7 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Sales', {
+    await queryInterface.createTable('sales', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -36,10 +36,10 @@ module.exports = {
         allowNull: false,
         field: 'total_price',
       },
-      deliveryAdress: {
+      deliveryAddress: {
         type: Sequelize.STRING,
         allowNull: false,
-        field: 'delivery_adress',
+        field: 'delivery_address',
       },
       deliveryNumber: {
         type: Sequelize.STRING,

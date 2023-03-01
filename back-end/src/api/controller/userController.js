@@ -6,7 +6,7 @@ async function register(req, res, next) {
 
     const token = await userService.register({ name, email, password, role });
 
-    return res.status(200).json({ token });
+    return res.status(201).json({ name, email, password, role, token });
   } catch (error) {
     next(error);
   }

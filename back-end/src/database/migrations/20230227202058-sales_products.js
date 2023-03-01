@@ -2,7 +2,7 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.createTable('Sales_Products', {
+    await queryInterface.createTable('sales_products', {
       sale_id: {
         allowNull: false,
         primaryKey: true,

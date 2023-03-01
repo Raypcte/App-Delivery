@@ -1,11 +1,14 @@
 const express = require('express');
+const cors = require('cors');
 const errorHandler = require('./middleware/errorMiddleware');
 const loginRouter = require('./routes/loginRoute');
 const userRouter = require('./routes/userRoute');
 
 const app = express();
 
-app.get('/coffee', (_req, res) => res.status(418).end());
+app.use(cors());
+
+app.get('/coffee', (_req, res) => res.status(200).json('test'));
 
 app.use(express.json());
 

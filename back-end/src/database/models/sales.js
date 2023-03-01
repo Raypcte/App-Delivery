@@ -30,10 +30,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       field: 'total_price',
     },
-    deliveryAdress: {
+    deliveryAddress: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: 'delivery_adress',
+      field: 'delivery_address',
     },
     deliveryNumber: {
       type: DataTypes.STRING,

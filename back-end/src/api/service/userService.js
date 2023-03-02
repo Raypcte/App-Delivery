@@ -2,11 +2,12 @@ const md5 = require('md5');
 const BadRequestError = require('../error/badRequestError');
 const NotFoundError = require('../error/notFoundError');
 const UnauthorizedError = require('../error/unauthorizedError');
+const ConflictError = require('../error/conflictError');
 const { jwtAuthenticate } = require('../auth/jwt');
 const userModel = require('../model/userModel');
 
 const validateCredentials = (user) => {
-  const emailRegex = /^[\w-.]+@([\w-]+.)+[\w-]{2,4}$/g;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailRegex.test(user.email)) throw new BadRequestError('email inválido');
 
@@ -33,13 +34,17 @@ const register = async (user) => {
   validateCredentials(user);
   if (user.name.length < 12) throw new BadRequestError('nome inválido');
 
-  await userModel.register({ ...user, password: md5(user.password) });
+  try {
+    await userModel.register({ ...user, password: md5(user.password) });
+  } catch (error) {
+    throw new ConflictError('Nome ou email indisponíveis');
+  }
 
   const newUser = await findByEmail(user.email);
 
   if (!newUser) throw new NotFoundError('usuário não encontrado');
 
-  return generateToken(user);
+  return generateToken(newUser);
 };
 
 const login = async (credentials) => {

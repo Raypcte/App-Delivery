@@ -11,6 +11,9 @@ function errorHandler(err, _req, res, next) {
     case 401:
       res.status(401).json(err.message);
       break;
+    case 409:
+      res.status(409).json(err.message);
+      break;
     default:
       res.status(500).json(err.message);
       break;

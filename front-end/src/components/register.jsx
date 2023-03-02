@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import axios from '../utils/axiosIstance';
 
 function Register() {
@@ -37,16 +36,13 @@ function Register() {
   const handleRegister = useCallback((e) => {
     e.preventDefault();
 
-    axios.post('register', { name, email, password })
+    axios.post('register/', { name, email, password })
       .then((response) => {
         saveUser(response.data);
         navigate('/customer/products');
       })
       .catch((err) => setError({ error: err }));
   }, [name, email, password, navigate]);
-
-  useEffect(() => {
-  }, [error]);
 
   return (
     <>

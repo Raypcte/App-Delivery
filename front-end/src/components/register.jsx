@@ -38,7 +38,6 @@ function Register() {
 
     axios.post('register', { name, email, password })
       .then((response) => {
-        console.log(response);
         saveUser(response.data);
         navigate('/customer/products');
       })

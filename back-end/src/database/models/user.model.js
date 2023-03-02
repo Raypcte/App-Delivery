@@ -1,6 +1,7 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  const product = sequelize.define('products', {
+  const user = sequelize.define('users', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -10,20 +11,27 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       allowNull: false,
       type: DataTypes.STRING,
+      unique: true,
     },
-    price: {
+    email: {
       allowNull: false,
-      type: DataTypes.DECIMAL,
-    },
-    urlImage: {
-      field: 'url_image',
       type: DataTypes.STRING,
-      allowNull: true,
-    }
+      unique: true,
+    },
+    password: {
+      allowNull: false,
+      type: DataTypes.STRING,
+    },
+    role: {
+      type: DataTypes.STRING,
+      defaultValue: 'customer',
+      allowNull: false,
+    },
   }, {
-    modelName: 'products',
+    modelName: 'user',
+    tableName: 'users',
     timestamps: false,
   });
 
-  return product;
+  return user
 }

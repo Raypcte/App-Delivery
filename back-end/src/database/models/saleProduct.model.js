@@ -1,43 +1,41 @@
-const { Model, INTEGER } = require('sequelize');
-const db = require('.');
-const Product = require('./product.model');
-const Sale = require('./sale.model');
+'use strict';
 
-class SaleProduct extends Model { }
-
-SaleProduct.init({
-  saleId: {
-    type: INTEGER,
-    allowNull: false,
-    references: {
-      model: Sale,
-      key: 'id',
-    }
-  },
-  productId: {
-    type: INTEGER,
-    allowNull: false,
-    references: {
-      model: Product,
-      key: 'id',
+module.exports = (sequelize, DataTypes) => {
+  const saleProduct = sequelize.define('salesProducts', {
+    saleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'sale',
+        key: 'id',
+      }
     },
-  },
-  quantity: {
-    type: INTEGER,
-    allowNull: false,
-  },
-}, {
-  sequelize: db,
-  modelName: 'saleProduct',
-  tableName: 'salesProducts',
-  underscored: true,
-  timestamps: false,
-});
+    productId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'product',
+        key: 'id',
+      },
+    },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+  }, {
+    modelName: 'saleProduct',
+    tableName: 'salesProducts',
+    underscored: true,
+    timestamps: false,
+  });
 
-SaleProduct.hasMany(Sale, { foreignKey: 'saleId', as: 'sale' });
-SaleProduct.hasMany(Product, { foreignKey: 'productId', as: 'product' });
+  saleProduct.associate = ({ sales, products }) => {
+    saleProduct.belongsTo(sales, { foreignKey: 'saleId', as: 'sale' });
+    saleProduct.belongsTo(products, { foreignKey: 'productId', as: 'product' });
 
-Sale.belongsTo(SaleProduct, { foreignKey: 'saleId', as: 'sale' });
-Product.belongsTo(SaleProduct, { foreignKey: 'productId', as: 'product' });
+    sales.hasMany(saleProduct, { foreignKey: 'saleId', as: 'sale' });
+    products.hasMany(saleProduct, { foreignKey: 'productId', as: 'product' });
+  }
 
-module.exports = SaleProduct;
+  return saleProduct;
+};

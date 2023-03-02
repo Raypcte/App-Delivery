@@ -12,6 +12,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING,
         allowNull: false,
+        unique: true,
       },
       email: {
         type: Sequelize.STRING,
@@ -24,6 +25,7 @@ module.exports = {
       },
       role: {
         type: Sequelize.STRING,
+        defaultValue: 'customer',
         allowNull: false,
       },
     });

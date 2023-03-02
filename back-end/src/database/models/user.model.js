@@ -1,6 +1,7 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  const user = sequelize.define('user', {
+  const user = sequelize.define('users', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -8,26 +9,29 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
     },
     name: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
+      unique: true,
     },
     email: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
       unique: true,
     },
     password: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
     },
     role: {
       type: DataTypes.STRING,
+      defaultValue: 'customer',
       allowNull: false,
     },
   }, {
     modelName: 'user',
+    tableName: 'users',
     timestamps: false,
   });
 
-  return user;
+  return user
 }

@@ -1,122 +1,97 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from '../utils/axiosIstance';
 
-const MIN_LENGTH = 6;
-const INITIAL_STATE = {
-  email: '',
-  password: '',
-  validEmail: false,
-  validPassword: false,
-  disabled: true,
-};
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [error, setError] = useState('');
 
-class Login extends React.Component {
-  state = INITIAL_STATE;
+  const navigate = useNavigate();
 
-  componentDidUpdate(_prevProps, prevState) {
-    const { email, password, validPassword, validEmail } = this.state;
-    if (prevState.email !== email || prevState.password !== password) {
-      if (validPassword && validEmail) {
-        this.setState({
-          disabled: false,
-        });
-      } else {
-        this.setState({
-          disabled: true,
-        });
-      }
-    }
-  }
+  const validateLogin = useCallback(() => {
+    const minPassLength = 6;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  handleEmail = ({ target }) => {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-    this.validateEmail(value);
+    const validPassword = (password.length >= minPassLength);
+    const validEmail = (email.length !== 0 && emailRegex.test(email));
+    if (validEmail && validPassword) return setIsDisabled(false);
+    setIsDisabled(true);
+    setError(undefined);
+  }, [email, password]);
+
+  useEffect(() => {
+    validateLogin();
+  }, [email, password, validateLogin]);
+
+  const saveLogin = (login) => {
+    localStorage.setItem('Login', JSON.stringify({ ...login }));
   };
 
-  handlePassword = async ({ target }) => {
-    const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
-    this.validatePassword(value);
-  };
+  const handleLogin = useCallback((e) => {
+    e.preventDefault();
 
-  handlebuttonLogin = () => {
+    axios.post('login', { email, password }).then((response) => {
+      saveLogin(response.data);
+      navigate('/customer/products');
+    }).catch((err) => setError({ error: err }));
+  }, [email, password, navigate]);
 
-  };
+  const handleRegister = useCallback(() => {
+    navigate('/register');
+  }, [navigate]);
 
-  validateEmail = (email) => {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (regex.test(email)) {
-      this.setState({
-        validEmail: true,
-      });
-    } else {
-      this.setState({
-        validEmail: false,
-      });
-    }
-    // this.enableButton();
-  };
-
-  validatePassword = (password) => {
-    // this.enableButton();
-    if (password.length >= MIN_LENGTH) {
-      this.setState({
-        validPassword: true,
-      });
-    } else {
-      this.setState({
-        validPassword: false,
-      });
-    }
-    // this.enableButton();
-  };
-
-  render() {
-    const { disabled } = this.state;
-    return (
-      <div>
-        <h2>Login:</h2>
-        <form>
-          Login:
-          <input
-            data-testid="common_login__input-email"
-            type="email"
-            name="email"
-            id="email"
-            onChange={ this.handleEmail }
-          />
-          Senha:
-          <input
-            data-testid="common_login__input-password"
-            type="password"
-            name="password"
-            id="password"
-            onChange={ (target) => this.handlePassword(target) }
-          />
-          <button
-            data-testid="common_login__button-login"
-            type="submit"
-            disabled={ disabled }
-            onClick={ this.handlebuttonLogin }
-          >
-            Login
-          </button>
-          <button
-            data-testid="common_login__button-register"
-            type="submit"
-            onClick={ this.handlebuttonRegister }
-          >
-            Ainda não tenho conta
-          </button>
-          {}
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div>
+      <h2>Login:</h2>
+      <form>
+        Login:
+        <input
+          data-testid="common_login__input-email"
+          type="email"
+          name="email"
+          id="email"
+          value={ email }
+          onChange={ ({ target: { value } }) => setEmail(value) }
+        />
+        Senha:
+        <input
+          data-testid="common_login__input-password"
+          type="password"
+          name="password"
+          id="password"
+          value={ password }
+          onChange={ ({ target: { value } }) => setPassword(value) }
+        />
+        <button
+          data-testid="common_login__button-login"
+          type="submit"
+          disabled={ isDisabled }
+          onClick={ handleLogin }
+        >
+          Login
+        </button>
+        <button
+          data-testid="common_login__button-register"
+          type="button"
+          onClick={ handleRegister }
+        >
+          Ainda não tenho conta
+        </button>
+        {
+          error
+            ? (
+              <h4
+                data-testid="common_login__element-invalid-email"
+              >
+                Email inválido
+              </h4>
+            ) : ''
+        }
+      </form>
+    </div>
+  );
 }
 
 export default Login;

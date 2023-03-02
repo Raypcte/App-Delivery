@@ -1,66 +1,63 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
-  const sale = sequelize.define('sales', {
+  const sales = sequelize.define('sales', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      field: 'user_id',
       references: {
         model: 'User',
         key: 'id',
-      },
+      }
     },
     sellerId: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      field: 'seller_id',
       references: {
         model: 'User',
         key: 'id',
-      },
+      }
     },
     totalPrice: {
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
-      field: 'total_price',
     },
-    deliveryAddress: {
+    deliveryAddres: {
       type: DataTypes.STRING,
       allowNull: false,
-      field: 'delivery_address',
     },
     deliveryNumber: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
-      field: 'delivery_number',
     },
     saleDate: {
       type: DataTypes.DATE,
       allowNull: false,
-      field: 'sale_date',
     },
     status: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(50),
       allowNull: false,
-    }
+    },
   }, {
-    modelName: 'sales',
+    modelName: 'sale',
+    tableName: 'sales',
+    underscored: true,
     timestamps: false,
   });
 
-  sale.associate = (models) => {
-    sale.hasMany(models.user, { foreignKey: 'id', as: 'user' });
-    sale.hasMany(models.user, { foreignKey: 'id', as: 'seller' });
+  sales.associate = ({ users }) => {
+    sales.belongsTo(users, { foreignKey: 'userId', as: 'custumer' });
+    sales.belongsTo(users, { foreignKey: 'sellerId', as: 'seller' });
 
-    models.user.belongsTo(sale, {foreignKey: 'id', as: 'user' });
-    models.user.belongsTo(sale, { foreignKey: 'id', as: 'seller' });
+    users.hasMany(sales, { foreignKey: 'userId', as: 'custumer' });
+    users.hasMany(sales, { foreignKey: 'sellerId', as: 'seller' });
   }
 
-  return sale;
-}
+  return sales;
+};

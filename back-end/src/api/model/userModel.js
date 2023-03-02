@@ -1,17 +1,17 @@
-const { user } = require('../../database/models');
+const { users } = require('../../database/models');
 
 const register = async (data) => {
-  const newUser = await user.create(data);
+  const newUser = await users.create(data);
   return newUser;
 };
 
 const findById = async (id) => {
-  const person = await user.findByPk(Number(id));
+  const person = await users.findByPk(Number(id));
   return person;
 };
 
 const findByEmail = async (email) => {
-  const person = await user.findOne({ where: { email } });
+  const person = await users.findOne({ where: { email } });
   return person;
 };
 

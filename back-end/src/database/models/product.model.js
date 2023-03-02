@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const product = sequelize.define('products', {
     id: {
@@ -9,21 +10,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
     },
     price: {
       allowNull: false,
-      type: DataTypes.DECIMAL,
+      type: DataTypes.DECIMAL(4, 2)
     },
-    urlImage: {
-      field: 'url_image',
-      type: DataTypes.STRING,
-      allowNull: true,
-    }
+    urlImage: { type: DataTypes.STRING }
   }, {
-    modelName: 'products',
+    modelName: 'product',
+    tableName: 'products',
     timestamps: false,
-  });
+    underscored: true,
+  })
 
-  return product;
+  return product
 }

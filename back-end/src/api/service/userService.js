@@ -56,7 +56,9 @@ const login = async (credentials) => {
 
   if (user.password !== md5(credentials.password)) throw new UnauthorizedError('senha inválida'); 
 
-  return generateToken(user);
+  const { name, email, role } = user;
+
+  return { token: generateToken(user), name, email, role };
 };
 
 module.exports = {

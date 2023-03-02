@@ -35,7 +35,7 @@ function Login() {
     axios.post('login', { email, password }).then((response) => {
       saveLogin(response.data);
       navigate('/customer/products');
-    });
+    }).catch((err) => setError({ error: err }));
   }, [email, password, navigate]);
 
   const handleRegister = useCallback(() => {

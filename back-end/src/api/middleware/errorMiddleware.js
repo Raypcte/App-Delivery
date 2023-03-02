@@ -1,24 +1,17 @@
-function errorHandler(err, _req, res, next) {
-  console.error(err.status, err.message);
-  
+function errorHandler(err, _req, res) {
+  console.log(err);
   switch (err.status) {
     case 400:
-      res.status(400).json(err.message);
-      break;
+      return res.status(400).json(err.message);
     case 404:
-      res.status(404).json(err.message);
-      break;
+      return res.status(404).json(err.message);
     case 401:
-      res.status(401).json(err.message);
-      break;
+      return res.status(401).json(err.message);
     case 409:
-      res.status(409).json(err.message);
-      break;
+      return res.status(409).json(err.message);
     default:
-      res.status(500).json(err.message);
-      break;
+      return res.status(500).json(err.message);
   }
-  next(err);
 }
 
 module.exports = errorHandler;

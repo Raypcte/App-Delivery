@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
 import axios from '../utils/axiosIstance';
 
@@ -44,12 +45,16 @@ class Login extends React.Component {
     this.validatePassword(value);
   };
 
-  handlebuttonLogin = () => {
+  handlebuttonLogin = (e) => {
+    e.preventDefault();
     try {
-      axios.get('coffee').then((e) => console.log(e));
+      axios.get('coffee').then((i) => console.log(i));
     } catch (error) {
       console.log(error);
     }
+  };
+
+  handlebuttonRegister = () => {
   };
 
   validateEmail = (email) => {
@@ -106,17 +111,19 @@ class Login extends React.Component {
             data-testid="common_login__button-login"
             type="submit"
             disabled={ disabled }
-            onClick={ this.handlebuttonLogin }
+            onClick={ (e) => this.handlebuttonLogin(e) }
           >
             Login
           </button>
-          <button
-            data-testid="common_login__button-register"
-            type="submit"
-            onClick={ this.handlebuttonRegister }
-          >
-            Ainda não tenho conta
-          </button>
+          <Link to="/register">
+            <button
+              data-testid="common_login__button-register"
+              type="button"
+              onClick={ this.handlebuttonRegister() }
+            >
+              Ainda não tenho conta
+            </button>
+          </Link>
           {}
         </form>
       </div>

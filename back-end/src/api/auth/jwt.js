@@ -1,8 +1,10 @@
 require('dotenv/config');
+const fs = require('fs');
+const path = require('path');
 const jwt = require('jsonwebtoken');
 const { InternalError } = require('../error/internalError');
 
-const secret = process.env.JWT_SECRET;
+const secret = fs.readFileSync(path.resolve(__dirname, '../../../jwt.evaluation.key'));
 
 // usada para login e singup. Retorna um token
 const jwtAuthenticate = (user) => {

@@ -15,9 +15,9 @@ async function register(req, res, next) {
 async function login(req, res, next) {
   try {
     const { email, password } = req.body;
-    const token = await userService.login({ email, password });
+    const info = await userService.login({ email, password });
 
-    return res.status(200).json({ token });
+    return res.status(200).json({ ...info });
   } catch (error) {
     next(error);
   }

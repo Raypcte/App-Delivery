@@ -36,7 +36,7 @@ function Register() {
   const handleRegister = useCallback((e) => {
     e.preventDefault();
 
-    axios.post('register/', { name, email, password })
+    axios.post('register', { name, email, password })
       .then((response) => {
         saveUser(response.data);
         navigate('/customer/products');

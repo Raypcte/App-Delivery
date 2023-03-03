@@ -23,12 +23,12 @@ async function login(req, res, next) {
   }
 }
 
-async function getById(req, res, next) {
+async function findById(req, res, next) {
     try {
       const { id } = req.params;
-      const user = await userService.findById(id);
+      const { id: userId, name, email, role } = await userService.findById(id);
 
-      return res.status(200).json(user);
+      return res.status(200).json({ userId, name, email, role });
     } catch (error) {
       next(error);
     }
@@ -37,5 +37,5 @@ async function getById(req, res, next) {
 module.exports = {
   register,
   login,
-  getById,
+  findById,
 };

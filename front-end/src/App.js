@@ -11,7 +11,7 @@ function App() {
 
   // const isLogged = () => {
   //   const info = JSON.parse(localStorage.getItem('User'));
-  //   const user = axios.get(`user/${user.id}`);
+  //   const user = axios.get(`register/${user.id}`);
   //   if (!user || user.name !== info.name) {
   //     localStorage.clear();
   //     return navigation('/login');

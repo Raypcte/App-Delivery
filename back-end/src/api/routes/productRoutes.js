@@ -10,6 +10,7 @@ productRouter.get('/:id', async (req, res, next) => productController.findById(r
 
 // productRouter.put('/:id', async (req, res, next) => productController.update(req, res, next));
 
-productRouter.delete('/:id', async (req, res, next) => productController.deleteProduct(req, res, next));
+productRouter.delete('/:id', async (req, res, next) =>
+  productController.deleteProduct(req, res, next));
 
 module.exports = productRouter;

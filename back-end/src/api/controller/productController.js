@@ -15,34 +15,33 @@ async function findAll(_req, res, _next) {
 
 async function findById(req, res, next) {
   try {
-    const { id } = req.params
+    const { id } = req.params;
     const result = await productService.findById(id);
 
-    return res.status(200).json(result)
+    return res.status(200).json(result);
   } catch (error) {
-    next(error)
+    next(error);
   }
-
 }
 
 async function update(req, res, next) {
   try {
-    const { id } = req.params
-    const data = req.body
-    const result = await productService.update(id, data)
+    const { id } = req.params;
+    const data = req.body;
+    const result = await productService.update(id, data);
     return res.status(200).json(result);
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 
 async function deleteProduct(req, res, next) {
   try {
-    const { id } = req.params
-    await productService.deleteProduct(id)
-    return res.status(200).send()
+    const { id } = req.params;
+    await productService.deleteProduct(id);
+    return res.status(200).send();
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 
@@ -52,4 +51,4 @@ module.exports = {
   findById,
   update,
   deleteProduct,
-}
+};

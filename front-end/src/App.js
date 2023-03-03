@@ -10,7 +10,7 @@ function App() {
   // const navigation = useNavigate();
 
   // const isLogged = () => {
-  //   const info = localStorage.getItem('User');
+  //   const info = JSON.parse(localStorage.getItem('User'));
   //   const user = axios.get(`user/${user.id}`);
   //   if (!user || user.name !== info.name) {
   //     localStorage.clear();

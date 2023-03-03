@@ -23,7 +23,19 @@ async function login(req, res, next) {
   }
 }
 
+async function getById(req, res, next) {
+    try {
+      const { id } = req.params;
+      const user = await userService.findById(id);
+
+      return res.status(200).json(user);
+    } catch (error) {
+      next(error);
+    }
+}
+
 module.exports = {
   register,
   login,
+  getById,
 };

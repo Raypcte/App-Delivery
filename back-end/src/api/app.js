@@ -7,14 +7,14 @@ const productRouter = require('./routes/productRoutes');
 
 const app = express();
 
-const staticRoute = express.static('../../../../assets/images.zip');
+const staticRoute = express.static(__dirname + '../../../../assets/public');
 
 app.use(cors());
 
 app.use(express.json());
 app.use('/images', express.static('public'));
 
-app.use('/image', staticRoute);
+app.use('/images', staticRoute);
 app.use('/login', loginRouter);
 app.use('/register', userRouter);
 app.use('/products', productRouter);

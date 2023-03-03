@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 const errorHandler = require('./middleware/errorMiddleware');
@@ -7,7 +8,7 @@ const productRouter = require('./routes/productRoutes');
 
 const app = express();
 
-const staticRoute = express.static(__dirname + '../../../../assets/public');
+const staticRoute = express.static(path.join(__dirname, '../../../assets/public'));
 
 app.use(cors());
 

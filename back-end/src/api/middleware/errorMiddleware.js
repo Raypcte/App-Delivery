@@ -1,5 +1,5 @@
 function errorHandler(err, _req, res) {
-  console.log(err);
+  console.log(err.status, '---', err.message, '\n', err.stack);
   switch (err.status) {
     case 400:
       return res.status(400).json(err.message);

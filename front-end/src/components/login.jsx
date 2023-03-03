@@ -28,8 +28,8 @@ function Login() {
   }, [email, password, validateLogin]);
 
   const saveLogin = (login) => {
-    localStorage.setItem('user', JSON.stringify({ ...login }));
     setUser({ ...login });
+    localStorage.setItem('User', JSON.stringify({ ...login }));
   };
 
   const handleLogin = ((e) => {

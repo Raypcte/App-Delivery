@@ -16,6 +16,7 @@ app.use(express.json());
 app.use('/images', express.static('public'));
 
 app.use('/images', staticRoute);
+
 app.use('/login', loginRouter);
 app.use('/register', userRouter);
 app.use('/products', productRouter);

@@ -27,7 +27,7 @@ function Login() {
     validateLogin();
   }, [email, password, validateLogin]);
 
-  const saveLogin = (user) => {
+  const saveUser = (user) => {
     setUser({ ...user });
     localStorage.setItem('User', JSON.stringify({ ...user }));
   };
@@ -36,7 +36,7 @@ function Login() {
     e.preventDefault();
 
     axios.post('login', { email, password }).then((response) => {
-      saveLogin(response.data);
+      saveUser(response.data);
       navigate('/customer/products');
     }).catch((err) => setError({ error: err }));
   });

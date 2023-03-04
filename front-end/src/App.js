@@ -4,7 +4,11 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/login';
 import CustumerProducts from './pages/CustomerProducts';
 import Register from './components/register';
+<<<<<<< HEAD
 import MyProvider from './context/MyProvider';
+=======
+import OrdersCards from './components/orders';
+>>>>>>> 53afddc6 (refatoração da pagina de produtos no front)
 
 function App() {
   // const navigation = useNavigate();
@@ -25,6 +29,7 @@ function App() {
   // }
 
   return (
+<<<<<<< HEAD
     <MyProvider>
       <div>
         <Routes>
@@ -35,6 +40,16 @@ function App() {
         </Routes>
       </div>
     </MyProvider>
+=======
+    <div>
+      <Routes>
+        <Route path="/login" element={ <Login /> } />
+        <Route path="/" element={ <Navigate to="/login" replace /> } />
+        <Route path="/register" element={ <Register /> } />
+        <Route path="/customer/products" element={ <OrdersCards /> } />
+      </Routes>
+    </div>
+>>>>>>> 53afddc6 (refatoração da pagina de produtos no front)
   );
 }
 

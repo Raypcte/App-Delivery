@@ -23,7 +23,19 @@ async function login(req, res, next) {
   }
 }
 
+async function getRole(req, res, next) {
+  try {
+    const { role } = req.query;
+    console.log(role)
+    const info = await userService.findByRole(role);
+    return res.status(200).json(info);
+  } catch (error) {
+    next(error);
+  }
+}
+
 module.exports = {
   register,
   login,
+  getRole,
 };

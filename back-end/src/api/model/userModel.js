@@ -15,8 +15,14 @@ const findByEmail = async (email) => {
   return person;
 };
 
+const findByRole = async (role) => {
+  const person = await users.findAll({ where: { role } });
+  return person;
+};
+
 module.exports = {
   register,
   findByEmail,
   findById,
+  findByRole,
 };

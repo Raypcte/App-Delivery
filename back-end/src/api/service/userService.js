@@ -61,9 +61,15 @@ const login = async (credentials) => {
   return { token: generateToken(user), name, email, role };
 };
 
+const findByRole = async (role) => {
+  const user = await userModel.findByRole(role);
+  return user;
+};
+
 module.exports = {
   findByEmail,
   findById,
   register,
   login,
+  findByRole,
 };

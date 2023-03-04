@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const produtos = [
   {
@@ -23,15 +24,28 @@ const produtos = [
   },
 
 ];
-const vendedores = [
-  'Fulano da Silva',
-  'Cicrano Souza',
-  'Xablau Santos',
-];
 
 function Checkout() {
+  const [products, setProducts] = useState([]);
+  const [sellers, setSellers] = useState([]);
+
+  useEffect(() => {
+    setProducts(produtos);
+
+    const getSellers = async () => {
+      const response = await axios.get('http://localhost:3001/register?role=seller');
+      setSellers(response.data);
+    };
+    getSellers();
+  }, []);
+
   const total = (itens) => itens
     .reduce((acc, produto) => acc + (produto.qtd * produto.und), 0);
+
+  const remove = (id) => {
+    setProducts(products.filter((item) => item.id !== id));
+  };
+
   return (
     <div>
       <h1 data-testid="customer_products__element-navbar-link-products">PRODUTOS</h1>
@@ -54,7 +68,7 @@ function Checkout() {
         </thead>
         <tbody>
           {
-            produtos.map((item, index) => (
+            products.map((item, index) => (
               <tr key={ item.id }>
                 <td
                   data-testid={
@@ -97,6 +111,7 @@ function Checkout() {
                     data-testid={
                       `customer_checkout__element-order-table-remove-<${index}>`
                     }
+                    onClick={ () => remove(item.id) }
                   >
                     Remover
                   </button>
@@ -107,7 +122,7 @@ function Checkout() {
         </tbody>
       </table>
       <h1 data-testid="customer_checkout__element-order-total-price">
-        {`Total: ${total(produtos).toFixed(2)}`}
+        {`Total: ${total(products).toFixed(2)}`}
       </h1>
       <h2>Detalhes e  Endereço para Entrega</h2>
       <form>
@@ -118,8 +133,10 @@ function Checkout() {
             data-testid="customer_checkout__select-seller"
           >
             {
-              vendedores.map((item) => (
-                <option key={ item } value={ item }>{item}</option>
+              sellers.map((item) => (
+                <option key={ item.name } value={ item.name }>
+                  {item.name}
+                </option>
               ))
             }
           </select>

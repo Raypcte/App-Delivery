@@ -23,8 +23,15 @@ const produtos = [
   },
 
 ];
+const vendedores = [
+  'Fulano da Silva',
+  'Cicrano Souza',
+  'Xablau Santos',
+];
 
 function Checkout() {
+  const total = (itens) => itens
+    .reduce((acc, produto) => acc + (produto.qtd * produto.und), 0);
   return (
     <div>
       <h1 data-testid="customer_products__element-navbar-link-products">PRODUTOS</h1>
@@ -99,6 +106,49 @@ function Checkout() {
           }
         </tbody>
       </table>
+      <h1 data-testid="customer_checkout__element-order-total-price">
+        {`Total: ${total(produtos).toFixed(2)}`}
+      </h1>
+      <h2>Detalhes e  Endereço para Entrega</h2>
+      <form>
+        <label htmlFor="vendedor">
+          P. Vendedora Responsável:
+          <select
+            id="vendedor"
+            data-testid="customer_checkout__select-seller"
+          >
+            {
+              vendedores.map((item) => (
+                <option key={ item } value={ item }>{item}</option>
+              ))
+            }
+          </select>
+        </label>
+        <label htmlFor="endereco">
+          Endereço:
+          <input
+            type="text"
+            name="endereco"
+            id="endereco"
+            data-testid="customer_checkout__input-address"
+          />
+        </label>
+        <label htmlFor="numero">
+          Número:
+          <input
+            type="number"
+            name="numero"
+            id="numero"
+            data-testid="customer_checkout__input-address-number"
+          />
+        </label>
+        <button
+          type="button"
+          data-testid="customer_checkout__button-submit-order"
+        >
+          FINALIZAR PEDIDO
+        </button>
+      </form>
     </div>
   );
 }

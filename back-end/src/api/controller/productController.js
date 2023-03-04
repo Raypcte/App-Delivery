@@ -1,16 +1,24 @@
 const productService = require('../service/productService');
 
-async function create(req, res, _next) {
-  const data = req.body;
-  const result = await productService.create(data);
-
-  return res.status(201).json(result);
+async function create(req, res, next) {
+  try {
+    const data = req.body;
+    const result = await productService.create(data);
+  
+    return res.status(201).json(result);
+  } catch (error) {
+    next(error)
+  }
 }
 
-async function findAll(_req, res, _next) {
-  const result = await productService.findAll();
+async function findAll(_req, res, next) {
+  try {
+    const result = await productService.findAll();
 
-  return res.status(200).json(result);
+    return res.status(200).json(result);
+  } catch (error) {
+    next(error)
+  }
 }
 
 async function findById(req, res, next) {

@@ -27,9 +27,9 @@ function Login() {
     validateLogin();
   }, [email, password, validateLogin]);
 
-  const saveLogin = (login) => {
-    setUser({ ...login });
-    localStorage.setItem('User', JSON.stringify({ ...login }));
+  const saveLogin = (user) => {
+    setUser({ ...user });
+    localStorage.setItem('User', JSON.stringify({ ...user }));
   };
 
   const handleLogin = ((e) => {

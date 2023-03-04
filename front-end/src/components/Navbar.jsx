@@ -1,23 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import myContext from '../context/MyContext';
 
 function NavBar() {
   const navigate = useNavigate();
-  const [user, setUser] = useState({});
+  const { user, setUser } = useContext(myContext);
 
   const handleClick = () => {
     localStorage.clear();
+    setUser({});
     navigate('/');
   };
-
-  useEffect(() => {
-    const carregaUsuario = () => {
-      const data = JSON.parse(localStorage.getItem('Login'));
-      setUser(data);
-    };
-
-    carregaUsuario();
-  }, []);
 
   return (
     <header>
@@ -33,14 +26,13 @@ function NavBar() {
 
         { user.role === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
 
-        { user.role === 'admin' && <Link to="/admin/manage">Gerenciar Usuários</Link> }
+        { user.role === 'administrator'
+        && <Link to="/admin/manage">Gerenciar Usuários</Link> }
       </div>
       <div data-testid="customer_products__element-navbar-user-full-name">
         { user.name }
       </div>
       <button
-        name="logout-button"
-        class-name="logout-button"
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
         onClick={ handleClick }

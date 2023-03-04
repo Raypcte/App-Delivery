@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../utils/axiosIstance';
+import myContext from '../context/MyContext';
 
 function Login() {
+  const { setUser } = useContext(myContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
@@ -27,16 +29,17 @@ function Login() {
 
   const saveLogin = (login) => {
     localStorage.setItem('Login', JSON.stringify({ ...login }));
+    setUser({ ...login });
   };
 
-  const handleLogin = useCallback((e) => {
+  const handleLogin = ((e) => {
     e.preventDefault();
 
     axios.post('login', { email, password }).then((response) => {
       saveLogin(response.data);
       navigate('/customer/products');
     }).catch((err) => setError({ error: err }));
-  }, [email, password, navigate]);
+  });
 
   const handleRegister = useCallback(() => {
     navigate('/register');

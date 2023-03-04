@@ -6,7 +6,7 @@ const findAll = async () => sales.findAll();
 
 const findById = async (id) => sales.findByPk(id);
 
-const getByUserId = async (id) => sales.findAll({ where: { userId: id }});
+const getByUserId = async (id) => sales.findAll({ where: { userId: id } });
 
 const update = async (id, data) => {
   const { status, date, price } = data;

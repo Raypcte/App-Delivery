@@ -6,6 +6,7 @@ const loginRouter = require('./routes/loginRoute');
 const userRouter = require('./routes/userRoute');
 const productRouter = require('./routes/productRoutes');
 const ordersRouter = require('./routes/ordersRoute');
+
 const app = express();
 
 const staticRoute = express.static(path.join(__dirname, '../../../assets/public'));

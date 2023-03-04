@@ -7,7 +7,7 @@ async function create(req, res, next) {
   
     return res.status(201).json(result);
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 
@@ -17,7 +17,7 @@ async function findAll(_req, res, next) {
 
     return res.status(200).json(result);
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 

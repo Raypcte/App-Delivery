@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 export default function ProductCard({ id, urlImage, name, price }) {
-  const handleChange = () => {};
+  const [quantity, setQuantity] = useState(0);
 
-  const handleClick = () => {};
+  const handleChange = ({ target: { value } }) => {
+    setQuantity(value);
+  };
+
+  const handleClick = ({ target }) => {
+    if (target.name === 'add') setQuantity((prevState) => prevState + 1);
+    if (target.name === 'rm') setQuantity((prevState) => prevState - 1);
+  };
+
   return (
     <div>
       <p data-testid={ `customer_products__element-card-price-${id}` }>
@@ -26,7 +34,7 @@ export default function ProductCard({ id, urlImage, name, price }) {
         data-testid={ `customer_products__button-card-rm-item-${id}` }
         type="button"
         name="rm"
-        onClick={ () => handleClick }
+        onClick={ handleClick }
       >
         -
       </button>
@@ -37,14 +45,14 @@ export default function ProductCard({ id, urlImage, name, price }) {
         name="quantity"
         min="0"
         value={ quantity }
-        onChange={ () => handleChange }
+        onChange={ handleChange }
       />
 
       <button
         data-testid={ `customer_products__button-card-add-item-${id}` }
         type="button"
         name="add"
-        onClick={ () => handleClick }
+        onClick={ handleClick }
       >
         +
       </button>

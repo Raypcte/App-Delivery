@@ -1,22 +1,52 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default function ProductCard({ id, urlImage, name, price }) {
+export default function ProductCard({ id, urlImage, name, price, calculateTotal }) {
   const [quantity, setQuantity] = useState(0);
 
-  const handleChange = ({ target: { value } }) => {
-    setQuantity(value);
+  const handleChange = ({ target: { value } }) => setQuantity(value);
+
+  const updateLocalStorage = (newQuantity) => {
+    const cart = JSON.parse(localStorage.getItem('carrinho'));
+    const newCart = cart.filter((item) => item.id !== id);
+    replace('.', ',');
+    if (newQuantity === 0) {
+      return localStorage.setItem('carrinho', JSON.stringify(newCart));
+    }
+
+    const item = {
+      id,
+      name,
+      quantity: newQuantity,
+      unitPrice: price,
+      totalPrice: parseFloat(price.replace(',', '.') * newQuantity),
+    };
+
+    localStorage.setItem('carrinho', JSON.stringify([...newCart, item]));
   };
 
   const handleClick = ({ target }) => {
-    if (target.name === 'add') setQuantity((prevState) => prevState + 1);
-    if (target.name === 'rm') setQuantity((prevState) => prevState - 1);
+    if (target.name === 'add') {
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      updateLocalStorage(newQuantity);
+    }
+    if (target.name === 'rm') {
+      const newQuantity = quantity === 0 ? 0 : quantity - 1;
+      setQuantity(newQuantity);
+      updateLocalStorage(newQuantity);
+    }
+    calculateTotal();
   };
+
+  useEffect(() => {
+    localStorage.setItem('carrinho', JSON.stringify([]));
+  }, []);
 
   return (
     <div>
       <p data-testid={ `customer_products__element-card-price-${id}` }>
-        { price }
+        { `R$ ${price.replace('.', ',')}` }
       </p>
 
       <img
@@ -65,4 +95,5 @@ ProductCard.propTypes = {
   urlImage: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
+  calculateTotal: PropTypes.func.isRequired,
 };

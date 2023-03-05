@@ -28,7 +28,7 @@ function Login() {
   }, [email, password, validateLogin]);
 
   const saveLogin = (login) => {
-    localStorage.setItem('Login', JSON.stringify({ ...login }));
+    localStorage.setItem('user', JSON.stringify({ ...login }));
     setUser({ ...login });
   };
 

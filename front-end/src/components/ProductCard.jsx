@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 export default function ProductCard({ id, urlImage, name, price, calculateTotal }) {
   const [quantity, setQuantity] = useState(0);
 
-  const handleChange = ({ target: { value } }) => setQuantity(value);
-
   const updateLocalStorage = (newQuantity) => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
     const newCart = cart.filter((item) => item.id !== id);
@@ -23,6 +21,12 @@ export default function ProductCard({ id, urlImage, name, price, calculateTotal 
     };
 
     localStorage.setItem('carrinho', JSON.stringify([...newCart, item]));
+  };
+
+  const handleChange = ({ target: { value } }) => {
+    setQuantity(value);
+    updateLocalStorage(value);
+    calculateTotal();
   };
 
   const handleClick = ({ target }) => {

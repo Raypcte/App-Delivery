@@ -9,7 +9,7 @@ export default function ProductCard({ id, urlImage, name, price, calculateTotal 
   const updateLocalStorage = (newQuantity) => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
     const newCart = cart.filter((item) => item.id !== id);
-    replace('.', ',');
+
     if (newQuantity === 0) {
       return localStorage.setItem('carrinho', JSON.stringify(newCart));
     }

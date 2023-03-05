@@ -20,8 +20,8 @@ export default function CustomerProducts() {
   };
 
   useEffect(() => {
-    if (!value === 0) return setDisabled(false);
-    setDisabled(true);
+    if (value === 0) return setDisabled(true);
+    setDisabled(false);
   }, [value]);
 
   useEffect(() => {
@@ -40,7 +40,6 @@ export default function CustomerProducts() {
             name={ name }
             price={ price.replace('.', ',') }
             calculateTotal={ () => calculateTotal() }
-            setDisabled={ () => setDisabled() }
           />
         ))}
       </div>

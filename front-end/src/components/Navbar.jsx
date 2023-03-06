@@ -6,6 +6,7 @@ function Navbar() {
 
   const logOut = () => {
     localStorage.clear('User');
+
     navigate('/');
   };
 

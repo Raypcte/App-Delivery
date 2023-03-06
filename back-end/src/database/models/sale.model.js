@@ -28,10 +28,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
     },
-    deliveryAddress: {
+    deliveryAddres: {
       type: DataTypes.STRING,
       allowNull: false,
-
     },
     deliveryNumber: {
       type: DataTypes.STRING(50),
@@ -52,25 +51,12 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  sales.associate = ({ users, products, salesProducts }) => {
+  sales.associate = ({ users }) => {
     sales.belongsTo(users, { foreignKey: 'userId', as: 'custumer' });
     sales.belongsTo(users, { foreignKey: 'sellerId', as: 'seller' });
 
     users.hasMany(sales, { foreignKey: 'userId', as: 'custumer' });
     users.hasMany(sales, { foreignKey: 'sellerId', as: 'seller' });
-
-    sales.belongsToMany(products, { 
-      foreignKey: 'saleId',
-      otherKey: 'productId',
-      as: 'products',
-      through: 'sales_products',
-    })
-    products.belongsToMany(sales, { 
-      foreignKey: 'productId',
-      otherKey: 'saleId',
-      as: 'sale',
-      through: 'sales_products',
-    });
   }
 
   return sales;

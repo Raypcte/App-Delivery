@@ -17,7 +17,7 @@ export default function ProductCard({ id, urlImage, name, price, calculateTotal 
       name,
       quantity: newQuantity,
       unitPrice: price,
-      subTotal: parseFloat(price.replace(',', '.') * newQuantity),
+      totalPrice: parseFloat(price.replace(',', '.') * newQuantity),
     };
 
     localStorage.setItem('carrinho', JSON.stringify([...newCart, item]));

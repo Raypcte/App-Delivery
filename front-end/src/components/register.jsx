@@ -29,9 +29,9 @@ function Register() {
     validateData();
   }, [name, email, password, error, validateData]);
 
-  const saveUser = useCallback((user) => {
+  const saveUser = (user) => {
     localStorage.setItem('User', JSON.stringify({ ...user }));
-  }, []);
+  };
 
   const handleRegister = useCallback((e) => {
     e.preventDefault();
@@ -42,7 +42,7 @@ function Register() {
         navigate('/customer/products');
       })
       .catch((err) => setError({ error: err }));
-  }, [name, email, password, navigate, saveUser]);
+  }, [name, email, password, navigate]);
 
   return (
     <>

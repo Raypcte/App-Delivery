@@ -5,7 +5,7 @@ module.exports = {
     await queryInterface.bulkInsert('products', [
       {
         id: 1,
-        name: 'Skol Lata 250ml',
+        name:  'Skol Lata 250ml',
         price: 2.20,
         url_image:  'http://localhost:3001/images/skol_lata_350ml.jpg',
       }, {
@@ -58,7 +58,7 @@ module.exports = {
         name: 'Stella Artois 275ml',
         price: 3.49,
         url_image: 'http://localhost:3001/images/stella_artois_275ml.jpg',
-      },
+      }
   ], {});
   },
 

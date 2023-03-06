@@ -1,39 +1,46 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import myContext from '../context/MyContext';
 
-function Navbar() {
+function NavBar() {
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(myContext);
+
+  const handleClick = () => {
+    localStorage.clear();
+    setUser({});
+    navigate('/');
+  };
+
   return (
-    <nav>
-      <div>
+    <header>
+      { user.role === 'customer' && (
         <Link
-          to="/customer/products"
+          to="/customer/orders/"
           data-testid="customer_products__element-navbar-link-products"
         >
-          PRODUTOS
-        </Link>
-        <Link
-          to="/customer/orders"
-          data-testid="customer_products__element-navbar-link-orders"
-        >
-          MEUS PEDIDOS
-        </Link>
+          Produtos
+        </Link>)}
+      <div data-testid="customer_products__element-navbar-link-orders">
+        { user.role === 'customer' && <Link to="/customer/products">Meus Pedidos</Link> }
+
+        { user.role === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
+
+        { user.role === 'administrator'
+        && <Link to="/admin/manage">Gerenciar Usuários</Link> }
       </div>
-      <div>
-        <Link
-          data-testid="customer_products__element-navbar-user-full-name"
-          to="."
-        >
-          NOME DO USUÁRIO
-        </Link>
-        <Link
-          to="."
-          data-testid="customer_products__element-navbar-link-logout"
-        >
-          Sair
-        </Link>
+      <div data-testid="customer_products__element-navbar-user-full-name">
+        { user.name }
       </div>
-    </nav>
+      <button
+        type="button"
+        data-testid="customer_products__element-navbar-link-logout"
+        onClick={ handleClick }
+      >
+        Sair
+      </button>
+    </header>
   );
 }
 
-export default Navbar;
+export default NavBar;

@@ -11,15 +11,15 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(100),
       },
       price: {
         allowNull: false,
-        type: Sequelize.DECIMAL,
+        type: Sequelize.DECIMAL(4,2),
       },
       urlImage: {
         field: 'url_image',
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(200),
       }
     });
   },

@@ -1,26 +1,18 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Navbar() {
-  const navigate = useNavigate();
-
-  const logOut = () => {
-    localStorage.clear('User');
-
-    navigate('/');
-  };
-
   return (
     <nav>
       <div>
         <Link
-          to="/customer/products"
+          to="."
           data-testid="customer_products__element-navbar-link-products"
         >
           PRODUTOS
         </Link>
         <Link
-          to="/customer/orders"
+          to="."
           data-testid="customer_products__element-navbar-link-orders"
         >
           MEUS PEDIDOS
@@ -33,13 +25,12 @@ function Navbar() {
         >
           NOME DO USUÁRIO
         </Link>
-        <button
-          type="button"
+        <Link
+          to="."
           data-testid="customer_products__element-navbar-link-logout"
-          onClick={ () => logOut() }
         >
           Sair
-        </button>
+        </Link>
       </div>
     </nav>
   );

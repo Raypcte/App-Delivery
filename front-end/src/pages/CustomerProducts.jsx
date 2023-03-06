@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import NavBar from '../components/NavBar';
+import NavBar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 
 export default function CustomerProducts() {
@@ -15,7 +15,7 @@ export default function CustomerProducts() {
 
   const calculateTotal = () => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
-    const result = cart.reduce((acc, cur) => acc + cur.totalPrice, 0);
+    const result = cart.reduce((acc, cur) => acc + cur.subTotal, 0);
     setValue(result);
   };
 

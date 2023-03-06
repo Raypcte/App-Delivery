@@ -1,4 +1,4 @@
-const { sales } = require('../../database/models');
+const { sales, products } = require('../../database/models');
 
 const create = async (data) => sales.create(data);
 
@@ -6,7 +6,10 @@ const findAll = async () => sales.findAll();
 
 const findById = async (id) => sales.findByPk(id);
 
-const getByUserId = async (id) => sales.findAll({ where: { userId: id } });
+const getByUserId = async (id) => sales.findAll({ 
+  where: { userId: id },
+  include: { model: products, as: 'products', through: { attributes: [] } },
+});
 
 const update = async (id, data) => {
   const { status, date, price } = data;

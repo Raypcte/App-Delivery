@@ -22,44 +22,50 @@ function OrdersCards() {
   }, []);
 
   return (
-    <>
-      {
-        orders.map((item) => (
-          <button
-            key={ item.id }
-            onClick={ navigate(`/customer/orders/${item.id}`) }
-            type="button"
-          >
-            <table>
-              <tbody>
-                <tr>
-                  <td
-                    data-testid={ `customer_orders__element-order-id-${item.id}` }
-                  >
-                    {item.id}
-                  </td>
-                  <td
-                    data-testid={ `customer_orders__element-delivery-status-${item.id}` }
-                  >
-                    {item.status}
-                  </td>
-                  <td
-                    data-testid={ `customer_orders__element-order-date-${item.id}` }
-                  >
-                    { item.saleDate }
-                  </td>
-                  <td
-                    data-testid={ `customer_orders__element-card-price-${item.id}` }
-                  >
-                    {item.totalPrice}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </button>
-        ))
-      }
-    </>
+    orders.length
+      ? (
+        <>
+          {
+            orders.map((item) => (
+              <button
+                key={ item.id }
+                onClick={ () => navigate(`/customer/orders/${item.id}`) }
+                type="button"
+              >
+                <table>
+                  <tbody>
+                    <tr>
+                      <td
+                        data-testid={ `customer_orders__element-order-id-${item.id}` }
+                      >
+                        {item.id}
+                      </td>
+                      <td
+                        data-testid={ `customer_orders__
+                        element-delivery-status-${item.id}` }
+                      >
+                        {item.status}
+                      </td>
+                      <td
+                        data-testid={ `customer_orders__element-order-date-${item.id}` }
+                      >
+                        { item.saleDate }
+                      </td>
+                      <td
+                        data-testid={ `customer_orders__element-card-price-${item.id}` }
+                      >
+                        {item.totalPrice}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </button>
+            ))
+          }
+        </>
+      ) : (
+        <h1>Sem pedidos cadastrados</h1>
+      )
   );
 }
 

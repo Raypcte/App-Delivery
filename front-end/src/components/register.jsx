@@ -8,7 +8,6 @@ function Register() {
   const [password, setPassword] = useState('');
   const [isDisabled, setIsDisabled] = useState(true);
   const [error, setError] = useState(undefined);
-  const { setUser } = useContext(myContext);
 
   const navigate = useNavigate();
 
@@ -32,8 +31,7 @@ function Register() {
 
   const saveUser = useCallback((user) => {
     localStorage.setItem('User', JSON.stringify({ ...user }));
-    setUser({ ...user });
-  }, [setUser]);
+  }, []);
 
   const handleRegister = useCallback((e) => {
     e.preventDefault();

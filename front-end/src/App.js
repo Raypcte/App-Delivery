@@ -1,55 +1,47 @@
-import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
-// import axios from './utils/axiosIstance';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate, Navigate } from 'react-router-dom';
 import Login from './components/login';
 import CustumerProducts from './pages/CustomerProducts';
 import Register from './components/register';
-<<<<<<< HEAD
 import MyProvider from './context/MyProvider';
-=======
-import OrdersCards from './components/orders';
->>>>>>> 53afddc6 (refatoração da pagina de produtos no front)
+import OrdersCards from './components/OrderCards';
+import OrderDetails from './components/orderDetails';
 
 function App() {
-  // const navigation = useNavigate();
+  const navigation = useNavigate();
 
-  // const isLogged = () => {
-  //   const info = JSON.parse(localStorage.getItem('User'));
-  //   const user = axios.get(`register/${user.id}`);
-  //   if (!user || user.name !== info.name) {
-  //     localStorage.clear();
-  //     return navigation('/login');
-  //   }
-  //   return navigation('customer/products');
-  // };
+  const logOut = () => {
+    localStorage.clear('User');
+    return navigation('/login');
+  };
 
-  // const logOut = () => {
-  //     localStorage.clear();
-  //     return navigation('/login');
-  // }
+  const isLogged = async () => {
+    try {
+      const info = JSON.parse(localStorage.getItem('User'));
+      if (!info) return logOut();
+      return navigation('customer/products');
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    isLogged();
+  }, []);
 
   return (
-<<<<<<< HEAD
     <MyProvider>
       <div>
         <Routes>
+          <Route path="/register" element={ <Register /> } />
           <Route path="/login" element={ <Login /> } />
           <Route path="/" element={ <Navigate to="/login" replace /> } />
           <Route path="/customer/products" element={ <CustumerProducts /> } />
-          <Route path="/register" element={ <Register /> } />
+          <Route path="/customer/orders" element={ <OrdersCards /> } />
+          <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
         </Routes>
       </div>
     </MyProvider>
-=======
-    <div>
-      <Routes>
-        <Route path="/login" element={ <Login /> } />
-        <Route path="/" element={ <Navigate to="/login" replace /> } />
-        <Route path="/register" element={ <Register /> } />
-        <Route path="/customer/products" element={ <OrdersCards /> } />
-      </Routes>
-    </div>
->>>>>>> 53afddc6 (refatoração da pagina de produtos no front)
   );
 }
 

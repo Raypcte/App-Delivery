@@ -40,11 +40,11 @@ const register = async (user) => {
     throw new ConflictError('Nome ou email indisponíveis');
   }
 
-  const newUser = await findByEmail(user.email);
+  const { id, name, email, role } = await findByEmail(user.email);
 
-  if (!newUser) throw new NotFoundError('usuário não encontrado');
+  if (!id) throw new NotFoundError('usuário não encontrado');
 
-  return generateToken(newUser);
+  return { token: generateToken(user), name, email, role, id };
 };
 
 const login = async (credentials) => {
@@ -56,9 +56,9 @@ const login = async (credentials) => {
 
   if (user.password !== md5(credentials.password)) throw new UnauthorizedError('senha inválida'); 
 
-  const { name, email, role } = user;
+  const { id, name, email, role } = user;
 
-  return { token: generateToken(user), name, email, role };
+  return { token: generateToken(user), name, email, role, id };
 };
 
 module.exports = {

@@ -6,13 +6,13 @@ function Navbar() {
     <nav>
       <div>
         <Link
-          to="/customer/products"
+          to="."
           data-testid="customer_products__element-navbar-link-products"
         >
           PRODUTOS
         </Link>
         <Link
-          to="/customer/orders"
+          to="."
           data-testid="customer_products__element-navbar-link-orders"
         >
           MEUS PEDIDOS

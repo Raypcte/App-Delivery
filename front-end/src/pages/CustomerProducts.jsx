@@ -15,7 +15,7 @@ export default function CustomerProducts() {
 
   const calculateTotal = () => {
     const cart = JSON.parse(localStorage.getItem('carrinho'));
-    const result = cart.reduce((acc, cur) => acc + cur.totalPrice, 0);
+    const result = cart.reduce((acc, cur) => acc + cur.subTotal, 0);
     setValue(result);
   };
 

@@ -1,4 +1,4 @@
-const { sales, products } = require('../../database/models');
+const { sales, products, users } = require('../../database/models');
 
 const create = async (data) => sales.create(data);
 
@@ -13,7 +13,11 @@ const getByUserId = async (id) => sales.findAll({
 
 const getOneByUserId = async (userId, orderId) => sales.findAll({ 
   where: { userId, id: orderId },
-  include: { model: products, as: 'products', through: { attributes: [] } },
+  include: [
+    { model: products, as: 'products', through: { attributes: [] } },
+    { model: users, as: 'custumer' },
+    { model: users, as: 'seller' }
+  ]
 });
 
 const update = async (id, data) => {

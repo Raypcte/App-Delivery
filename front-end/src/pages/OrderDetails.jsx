@@ -26,6 +26,7 @@ function OrderDetails() {
   }, []);
 
   return (
+<<<<<<< HEAD
     <>
       <NavBar />
       {order
@@ -40,6 +41,19 @@ function OrderDetails() {
           />)
         : null}
     </>
+=======
+    order
+      ? (
+        <OrderDetailsCard
+          id={ order.id }
+          status={ order.status }
+          saleDate={ order.saleDate }
+          totalPrice={ order.totalPrice }
+          products={ order.products }
+          seller={ order.seller }
+        />)
+      : null
+>>>>>>> cd64d567 (partial commit)
   );
 }
 

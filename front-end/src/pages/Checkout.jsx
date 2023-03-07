@@ -68,39 +68,39 @@ function Checkout() {
         </thead>
         <tbody>
           {
-            products.map((item) => (
+            products.map((item, index) => (
               <tr key={ item.id }>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-item-number-${item.id}`
+                    `customer_checkout__element-order-table-item-number-${index}`
                   }
                 >
                   {item.id}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-name-${item.id}`
+                    `customer_checkout__element-order-table-name-${index}`
                   }
                 >
                   {item.name}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-quantity-${item.id}`
+                    `customer_checkout__element-order-table-quantity-${index}`
                   }
                 >
                   {item.quantity}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-unit-price-${item.id}`
+                    `customer_checkout__element-order-table-unit-price-${index}`
                   }
                 >
                   {item.unitPrice}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-sub-total-${item.id}`
+                    `customer_checkout__element-order-table-sub-total-${index}`
                   }
                 >
                   {item.totalPrice}
@@ -109,7 +109,7 @@ function Checkout() {
                   <button
                     type="button"
                     data-testid={
-                      `customer_checkout__element-order-table-remove-${item.id}`
+                      `customer_checkout__element-order-table-remove-${index}`
                     }
                     onClick={ () => remove(item.id) }
                   >

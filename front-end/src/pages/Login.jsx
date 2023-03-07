@@ -71,7 +71,7 @@ function Login() {
           data-testid="common_login__button-login"
           type="submit"
           disabled={ isDisabled }
-          onClick={ handleLogin }
+          onClick={ (e) => handleLogin(e) }
         >
           Login
         </button>

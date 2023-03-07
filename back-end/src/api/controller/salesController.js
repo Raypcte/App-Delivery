@@ -9,7 +9,7 @@ async function create(req, res, next) {
       saleDate: new Date(),
       status: 'Pendente',
     };
-  console.log(sale, 'minha venda');
+  // console.log(sale, 'minha venda');
   const result = await salesService.create(sale);
   return res.status(201).json(result);
   } catch (error) {
@@ -20,7 +20,7 @@ async function create(req, res, next) {
 async function getByUserId(req, res, next) {
   try {
     const { id } = req.params;
-    const orders = await ordersService.getByUserId(id);
+    const orders = await salesService.getByUserId(id);
     return res.status(200).json(orders);
   } catch (error) {
     next(error);
@@ -30,7 +30,7 @@ async function getByUserId(req, res, next) {
 async function getOneByUserId(req, res, next) {
   try {
     const { userId, orderId } = req.params;
-    const orders = await ordersService.getOneByUserId(userId, orderId);
+    const orders = await salesService.getOneByUserId(userId, orderId);
     return res.status(200).json(orders);
   } catch (error) {
     next(error);
@@ -39,7 +39,7 @@ async function getOneByUserId(req, res, next) {
 
 async function getAll(_req, res, next) {
   try {
-    const orders = await ordersService.getAll();
+    const orders = await salesService.getAll();
     return res.status(200).json(orders);
   } catch (error) {
     next(error);
@@ -51,7 +51,7 @@ try {
   const { status, date, price } = req.body;
   const { id } = req.params;
 
-  const result = await ordersService.update(id, { status, date, price });
+  const result = await salesService.update(id, { status, date, price });
 
   return res.status(201).json(result);
 } catch (error) {
@@ -62,7 +62,7 @@ try {
 async function deleteOrder(req, res, next) {
   try {
     const { id } = req.params;
-    await ordersService.deleteOrder(id);
+    await salesService.deleteOrder(id);
     return res.status(200).end();
   } catch (error) {
     next(error);

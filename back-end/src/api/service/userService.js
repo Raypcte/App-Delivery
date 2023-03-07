@@ -56,9 +56,14 @@ const login = async (credentials) => {
 
   if (user.password !== md5(credentials.password)) throw new UnauthorizedError('senha inválida'); 
 
-  const { name, email, role } = user;
+  const { name, email, role, id } = user;
 
-  return { token: generateToken(user), name, email, role };
+  return { id, token: generateToken(user), name, email, role };
+};
+
+const findByRole = async (role) => {
+  const user = await userModel.findByRole(role);
+  return user;
 };
 
 module.exports = {
@@ -66,4 +71,5 @@ module.exports = {
   findById,
   register,
   login,
+  findByRole,
 };

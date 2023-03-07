@@ -9,25 +9,26 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
     <button
       key={ id }
       onClick={ () => navigate(`/customer/orders/${id}`) }
-      data-testid={ `customer_orders__element-order-id-${id}` }
       type="button"
     >
       <table>
         <tbody>
           <tr>
-            <td>
+            <td
+              data-testid={ `customer_orders__element-order-id-${id}` }
+            >
               {id}
             </td>
             <td
-              data-testid={ `customer_orders__element-delivery-status-${id}` }
+              data-testid={ `customer_orders__
+                        element-delivery-status-${id}` }
             >
               {status}
             </td>
             <td
               data-testid={ `customer_orders__element-order-date-${id}` }
             >
-              { new Date(saleDate)
-                .toLocaleString('pt-BR', { timeZone: 'UTC' }).split(',')[0] }
+              { saleDate }
             </td>
             <td
               data-testid={ `customer_orders__element-card-price-${id}` }

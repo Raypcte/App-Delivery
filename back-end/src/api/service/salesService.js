@@ -1,4 +1,4 @@
-const ordersModel = require('../model/ordersModel');
+const ordersModel = require('../model/salesModel');
 const BadRequestError = require('../error/badRequestError');
 const NotFoundError = require('../error/notFoundError');
 const ConflicError = require('../error/conflictError');

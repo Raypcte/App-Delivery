@@ -6,6 +6,7 @@ import Register from './pages/Register';
 import MyProvider from './context/MyProvider';
 import Checkout from './pages/Checkout';
 import CustomerOrders from './pages/customerOrders';
+import OrderDetails from './pages/OrderDetails';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
           <Route path="/" element={ <Navigate to="/login" replace /> } />
           <Route path="/register" element={ <Register /> } />
           <Route path="/customer/products" element={ <CustumerProducts /> } />
-          <Route path="/customer/orders/:id" element={ <CustomerOrders /> } />
+          <Route path="/customer/orders" element={ <CustomerOrders /> } />
+          <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
           <Route path="/customer/checkout" element={ <Checkout /> } />
         </Routes>
       </div>

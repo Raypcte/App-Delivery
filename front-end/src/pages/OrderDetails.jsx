@@ -12,7 +12,7 @@ function OrderDetails() {
       const orderId = location.pathname.split('/')[3];
       const userId = JSON.parse(localStorage.getItem('user'))?.id;
 
-      await axios.get(`orders/${userId}/${orderId}`).then((response) => {
+      await axios.get(`sales/${userId}/${orderId}`).then((response) => {
         setOrder(response.data);
       });
     } catch (error) {

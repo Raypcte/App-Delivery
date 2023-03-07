@@ -8,7 +8,7 @@ function CustomerOrders() {
   const getOrders = useCallback(async () => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
     try {
-      await axios.get(`orders/${userInfo.id}`).then((response) => {
+      await axios.get(`sales/${userInfo.id}`).then((response) => {
         setOrders(response.data);
       });
     } catch (error) {

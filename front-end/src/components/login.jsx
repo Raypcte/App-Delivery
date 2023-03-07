@@ -35,9 +35,11 @@ function Login() {
   const handleLogin = ((e) => {
     e.preventDefault();
 
-    axios.post('login', { email, password }).then((response) => {
-      saveLogin(response.data);
-      navigate('/customer/products');
+    axios.post('login', { email, password }).then(({ data }) => {
+      saveLogin(data);
+      if (data.role === 'administrator') navigate('/admin/manage');
+      if (data.role === 'custumer') navigate('/customer/products');
+      if (data.role === 'seller') navigate('/seller/orders');
     }).catch((err) => setError({ error: err }));
   });
 

@@ -1,49 +1,49 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
-const produtos = [
-  {
-    id: 1,
-    name: 'Cerveja Stella 250ml',
-    qtd: 3,
-    und: 3.5,
-  },
-
-  {
-    id: 2,
-    name: 'Cerveja Skol Latão 450ml',
-    qtd: 4,
-    und: 4.10,
-  },
-
-  {
-    id: 3,
-    name: 'Salgadinho Torcida Churrasco',
-    qtd: 1,
-    und: 1.56,
-  },
-
-];
 
 function Checkout() {
   const [products, setProducts] = useState([]);
   const [sellers, setSellers] = useState([]);
+  const [sellerId, setSellerId] = useState(0);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [deliveryNumber, setDeliveryNumber] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setProducts(produtos);
+    const productsCar = JSON.parse(localStorage.getItem('carrinho'));
+    setProducts(productsCar || []);
 
     const getSellers = async () => {
       const response = await axios.get('http://localhost:3001/register?role=seller');
       setSellers(response.data);
+      setSellerId(response.data[0].id);
     };
     getSellers();
   }, []);
 
   const total = (itens) => itens
-    .reduce((acc, produto) => acc + (produto.qtd * produto.und), 0);
+    .reduce((acc, produto) => (
+      acc + Number(produto.totalPrice)
+    ), 0);
 
   const remove = (id) => {
     setProducts(products.filter((item) => item.id !== id));
+  };
+
+  const finishSale = async () => {
+    const userId = JSON.parse(localStorage.getItem('user'));
+    const sale = {
+      userId: userId.id || 1,
+      sellerId,
+      totalPrice: total(products),
+      deliveryAddress,
+      deliveryNumber,
+    };
+
+    const actualSale = await axios.post('http://localhost:3001/sales', sale);
+    console.log(actualSale);
+    navigate(`/customer/orders/${actualSale.data.id}`);
   };
 
   return (
@@ -68,48 +68,48 @@ function Checkout() {
         </thead>
         <tbody>
           {
-            products.map((item, index) => (
+            products.map((item) => (
               <tr key={ item.id }>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-item-number-<${index}>`
+                    `customer_checkout__element-order-table-item-number-${item.id}`
                   }
                 >
                   {item.id}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-name-<${index}>`
+                    `customer_checkout__element-order-table-name-${item.id}`
                   }
                 >
                   {item.name}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-quantity-<${index}>`
+                    `customer_checkout__element-order-table-quantity-${item.id}`
                   }
                 >
-                  {item.qtd}
+                  {item.quantity}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-unit-price-<${index}>`
+                    `customer_checkout__element-order-table-unit-price-${item.id}`
                   }
                 >
-                  {item.und}
+                  {item.unitPrice}
                 </td>
                 <td
                   data-testid={
-                    `customer_checkout__element-order-table-sub-total-<${index}>`
+                    `customer_checkout__element-order-table-sub-total-${item.id}`
                   }
                 >
-                  {item.qtd * item.und}
+                  {item.totalPrice}
                 </td>
                 <td>
                   <button
                     type="button"
                     data-testid={
-                      `customer_checkout__element-order-table-remove-<${index}>`
+                      `customer_checkout__element-order-table-remove-${item.id}`
                     }
                     onClick={ () => remove(item.id) }
                   >
@@ -131,10 +131,12 @@ function Checkout() {
           <select
             id="vendedor"
             data-testid="customer_checkout__select-seller"
+            onChange={ (e) => setSellerId(e.target.value) }
+            value={ sellerId }
           >
             {
               sellers.map((item) => (
-                <option key={ item.name } value={ item.name }>
+                <option key={ item.name } value={ item.id }>
                   {item.name}
                 </option>
               ))
@@ -148,6 +150,8 @@ function Checkout() {
             name="endereco"
             id="endereco"
             data-testid="customer_checkout__input-address"
+            onChange={ (e) => setDeliveryAddress(e.target.value) }
+            value={ deliveryAddress }
           />
         </label>
         <label htmlFor="numero">
@@ -157,11 +161,14 @@ function Checkout() {
             name="numero"
             id="numero"
             data-testid="customer_checkout__input-address-number"
+            onChange={ (e) => setDeliveryNumber(e.target.value) }
+            value={ deliveryNumber }
           />
         </label>
         <button
           type="button"
           data-testid="customer_checkout__button-submit-order"
+          onClick={ finishSale }
         >
           FINALIZAR PEDIDO
         </button>

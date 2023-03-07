@@ -16,6 +16,7 @@ async function login(req, res, next) {
   try {
     const { email, password } = req.body;
     const info = await userService.login({ email, password });
+    req.id = info.id;
 
     return res.status(200).json({ ...info });
   } catch (error) {

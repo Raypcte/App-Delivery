@@ -10,6 +10,8 @@ function NavBar() {
     if (!user) setUser(JSON.parse(localStorage.getItem('user')));
   }, []);
 
+  // const { user, setUser } = useContext(myContext);
+  // const user = JSON.parse(localStorage.getItem('user'));
   const handleClick = () => {
     localStorage.clear();
     setUser({});

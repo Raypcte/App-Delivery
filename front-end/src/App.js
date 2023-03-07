@@ -37,7 +37,6 @@ function App() {
     <MyProvider>
       <div>
         <Routes>
-          <Route path="/login" element={ <Login /> } />
           <Route path="/" element={ <Navigate to="/login" replace /> } />
           <Route path="/register" element={ <Register /> } />
           <Route path="/customer/products" element={ <CustumerProducts /> } />

@@ -5,7 +5,7 @@ import CustumerProducts from './pages/CustomerProducts';
 import Register from './pages/Register';
 import MyProvider from './context/MyProvider';
 import Checkout from './pages/Checkout';
-import CustomerOrders from './pages/CustomerOrders';
+import CustomerOrders from './pages/customerOrders';
 
 function App() {
   return (
@@ -14,10 +14,10 @@ function App() {
         <Routes>
           <Route path="/login" element={ <Login /> } />
           <Route path="/" element={ <Navigate to="/login" replace /> } />
-          <Route path="/customer/products" element={ <CustumerProducts /> } />
           <Route path="/register" element={ <Register /> } />
-          <Route path="/customer/checkout" element={ <Checkout /> } />
+          <Route path="/customer/products" element={ <CustumerProducts /> } />
           <Route path="/customer/orders/:id" element={ <CustomerOrders /> } />
+          <Route path="/customer/checkout" element={ <Checkout /> } />
         </Routes>
       </div>
     </MyProvider>

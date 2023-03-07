@@ -1,19 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import myContext from '../context/MyContext';
+import myContext from '../context/MyContext';
 
 function NavBar() {
   const navigate = useNavigate();
-  const [user, setUser] = useState(undefined);
-
-  useEffect(() => {
-    if (!user) setUser(JSON.parse(localStorage.getItem('user')));
-  }, []);
-
-  // const { user, setUser } = useContext(myContext);
-  // const user = JSON.parse(localStorage.getItem('user'));
+  const { setUser } = useContext(myContext);
+  const user = JSON.parse(localStorage.getItem('user'));
   const handleClick = () => {
-    localStorage.clear();
+    localStorage.clear('user');
     setUser({});
     navigate('/');
   };

@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DECIMAL(9, 2),
       allowNull: false,
     },
-    deliveryAddres: {
+    deliveryAddress: {
       type: DataTypes.STRING,
       allowNull: false,
     },

@@ -1,10 +1,12 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-import Login from './components/login';
+import Login from './pages/Login';
 import CustumerProducts from './pages/CustomerProducts';
-import Register from './components/register';
+import Register from './pages/Register';
 import MyProvider from './context/MyProvider';
 import AdminManage from './pages/AdminManage';
+import Checkout from './pages/Checkout';
+import CustomerOrders from './pages/CustomerOrders';
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/customer/products" element={ <CustumerProducts /> } />
           <Route path="/register" element={ <Register /> } />
           <Route path="/admin/manage" element={ <AdminManage /> } />
+          <Route path="/customer/checkout" element={ <Checkout /> } />
+          <Route path="/customer/orders/:id" element={ <CustomerOrders /> } />
         </Routes>
       </div>
     </MyProvider>

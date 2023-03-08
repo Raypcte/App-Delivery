@@ -12,6 +12,10 @@ function Login() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem('user'))) navigate('/customer/orders');
+  }, []);
+
   const validateLogin = useCallback(() => {
     const minPassLength = 6;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -24,7 +24,7 @@ function Checkout() {
 
   const total = (itens) => itens
     .reduce((acc, produto) => (
-      acc + Number(produto.totalPrice)
+      acc + parseFloat(produto.totalPrice)
     ), 0);
 
   const remove = (id) => {

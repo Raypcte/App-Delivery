@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import NavBar from '../components/Navbar';
 import axios from '../utils/axiosIstance';
 
 function Checkout() {
@@ -45,12 +46,13 @@ function Checkout() {
 
     const actualSale = await axios
       .post('http://localhost:3001/sales', sale, { headers: { Authorization: JSON.parse(localStorage.getItem('user')).token } });
-    console.log(actualSale);
+    console.log(sale);
     navigate(`/customer/orders/${actualSale.data.id}`);
   };
 
   return (
     <div>
+      <NavBar />
       <h1 data-testid="customer_products__element-navbar-link-products">PRODUTOS</h1>
       <h1 data-testid="customer_products__element-navbar-link-orders">MEUS PEDIDOS</h1>
       <p data-testid="customer_products__element-navbar-user-full-name">Cicrano</p>

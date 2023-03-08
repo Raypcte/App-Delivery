@@ -2,7 +2,7 @@
 const { sales, products, users, salesProducts } = require('../../database/models');
 
 const create = async (data) => {
-  try {
+  // try {
     // const result = await sequelize.transaction(async (t) => {
       const sale = await sales.create(data);
       await data.products.map(async (p) => salesProducts.create({ 
@@ -13,9 +13,9 @@ const create = async (data) => {
       return sale;
     // });
     // return result;
-  } catch (error) {
-    console.log(error);
-  }
+  // } catch (error) {
+  //   console.log(error);
+  // }
 };
 
 const findAll = async () => sales.findAll();

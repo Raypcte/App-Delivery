@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
+import NavBar from '../components/Navbar';
 import OrderDetailsCard from '../components/OrderDetailsCard';
 import axios from '../utils/axiosIstance';
 
@@ -25,17 +26,20 @@ function OrderDetails() {
   }, []);
 
   return (
-    order
-      ? (
-        <OrderDetailsCard
-          id={ order.id }
-          status={ order.status }
-          saleDate={ order.saleDate }
-          totalPrice={ order.totalPrice }
-          products={ order.products }
-          seller={ order.seller }
-        />)
-      : null
+    <>
+      <NavBar />
+      {order
+        ? (
+          <OrderDetailsCard
+            id={ order.id }
+            status={ order.status }
+            saleDate={ order.saleDate }
+            totalPrice={ order.totalPrice }
+            products={ order.products }
+            seller={ order.seller }
+          />)
+        : null}
+    </>
   );
 }
 

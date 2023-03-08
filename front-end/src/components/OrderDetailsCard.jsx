@@ -33,6 +33,8 @@ function OrderDetailsCard({
         <button
           type="button"
           onClick={ handleClick }
+          data-testid="customer_order_details__button-delivery-check"
+          disabled="true"
         >
           Marcar como entregue
         </button>
@@ -88,7 +90,7 @@ function OrderDetailsCard({
       <h4
         data-testid="customer_order_details__element-order-total-price"
       >
-        {`Total: R$ ${totalPrice}`}
+        { totalPrice.replace('.', ',') }
       </h4>
     </div>
   );

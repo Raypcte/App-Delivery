@@ -77,7 +77,8 @@ function OrderDetailsCard({
                 data-testid={ `customer_order_details__element
 -order-table-sub-total-${index}` }
               >
-                { parseFloat(product.price) * Number(product.salesProducts.quantity) }
+                { parseFloat(product.price)
+                  .toFixed(2) * Number(product.salesProducts.quantity) }
               </td>
             </tr>
           )) }

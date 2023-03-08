@@ -44,10 +44,10 @@ function Checkout() {
       products: products.map(({ id: productId, quantity }) => ({ productId, quantity })),
     };
 
-    const actualSale = await axios
+    const response = await axios
       .post('http://localhost:3001/sales', sale, { headers: { Authorization: JSON.parse(localStorage.getItem('user')).token } });
     console.log(sale);
-    navigate(`/customer/orders/${actualSale.data.id}`);
+    navigate(`/customer/orders/${response.data.id}`);
   };
 
   return (

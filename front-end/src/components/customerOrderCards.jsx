@@ -9,19 +9,17 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
     <button
       key={ id }
       onClick={ () => navigate(`/customer/orders/${id}`) }
+      data-testid={ `customer_orders__element-order-id-${id}` }
       type="button"
     >
       <table>
         <tbody>
           <tr>
-            <td
-              data-testid={ `customer_orders__element-order-id-${id}` }
-            >
+            <td>
               {id}
             </td>
             <td
-              data-testid={ `customer_orders__
-                        element-delivery-status-${id}` }
+              data-testid={ `customer_orders__element-delivery-status-${id}` }
             >
               {status}
             </td>

@@ -27,9 +27,16 @@ function NavBar() {
             >
               Produtos
             </Link>)}
-          <div data-testid="customer_products__element-navbar-link-orders">
+          <div>
             { user.role === 'customer'
-              && <Link to="/customer/orders">Meus Pedidos</Link> }
+              && (
+                <Link
+                  to="/customer/orders"
+                  data-testid="customer_products__element-navbar-link-orders"
+                >
+                  Meus Pedidos
+
+                </Link>) }
 
             { user.role === 'seller' && <Link to="/seller/orders">Pedidos</Link> }
 

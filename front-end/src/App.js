@@ -20,7 +20,9 @@ function App() {
   const isLogged = async () => {
     try {
       const info = JSON.parse(localStorage.getItem('user'));
-      if (!info && location.pathname !== '/register') return logOut();
+      if (!info
+        && (location.pathname !== '/register' || location.pathname !== '/login')
+      ) return logOut();
     } catch (error) {
       console.log(error);
     }

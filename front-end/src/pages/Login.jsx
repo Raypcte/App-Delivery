@@ -13,7 +13,19 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem('user'))) navigate('/customer/orders');
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      switch (user.role) {
+      case 'customer':
+        navigate('/customer/products');
+        break;
+      case 'seller':
+        navigate('/seller/*');
+        break;
+      default:
+        break;
+      }
+    }
   }, []);
 
   const validateLogin = useCallback(() => {

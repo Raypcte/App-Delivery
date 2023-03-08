@@ -8,6 +8,7 @@ function OrderDetailsCard({
   products,
   seller,
 }) {
+  const statusId = 'customer_order_details__element-order-details-label-delivery-status';
   const handleClick = () => {
 
   };
@@ -24,8 +25,7 @@ function OrderDetailsCard({
           { saleDate }
         </h4>
         <h4
-          data-testid="customer_order_details__element
-          -order-details-label-delivery-status"
+          data-testid={ statusId }
         >
           { status }
         </h4>
@@ -53,13 +53,13 @@ function OrderDetailsCard({
               <tr key={ index }>
                 <td
                   data-testid={ `customer_order_details__element
-                -order-table-item-number-${index}` }
+-order-table-item-number-${index}` }
                 >
                   { index + 1 }
                 </td>
                 <td
                   data-testid={ `customer_order_details__element
-                -order-table-name-${index}` }
+-order-table-name-${index}` }
                 >
                   { product.name }
                 </td>
@@ -71,13 +71,13 @@ function OrderDetailsCard({
                 </td>
                 <td
                   data-testid={ `customer_order_details__element
-                -order-table-unit-price-${index}` }
+-order-table-unit-price-${index}` }
                 >
                   { product.price }
                 </td>
                 <td
                   data-testid={ `customer_order_details__element
-                -order-table-sub-total-${index}` }
+-order-table-sub-total-${index}` }
                 >
                   { parseFloat(product.price) * quantity }
                 </td>

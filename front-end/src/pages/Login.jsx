@@ -35,9 +35,15 @@ function Login() {
   const handleLogin = ((e) => {
     e.preventDefault();
 
-    axios.post('login', { email, password }).then((response) => {
-      saveLogin(response.data);
-      navigate('/customer/products');
+    const route = {
+      administrator: '/admin/manage',
+      seller: '/seller/orders',
+      customer: '/customer/products',
+    };
+
+    axios.post('login', { email, password }).then(({ data }) => {
+      saveLogin(data);
+      navigate(`${route[data.role]}`);
     }).catch((err) => setError({ error: err }));
   });
 

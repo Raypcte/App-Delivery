@@ -13,6 +13,4 @@ salesRouter.get(
   async (req, res, next) => salesController.getOneByUserId(req, res, next),
 );
 
-
-
 module.exports = salesRouter;

@@ -13,9 +13,9 @@ async function create(req, res, next) {
   const result = await salesService.create(sale);
   return res.status(201).json(result);
   } catch (error) {
-    next(error)
+    next(error);
   }
-};
+}
 
 async function getByUserId(req, res, next) {
   try {
@@ -25,7 +25,7 @@ async function getByUserId(req, res, next) {
   } catch (error) {
     next(error);
   }
-};
+}
 
 async function getOneByUserId(req, res, next) {
   try {
@@ -35,7 +35,7 @@ async function getOneByUserId(req, res, next) {
   } catch (error) {
     next(error);
   }
-};
+}
 
 async function getAll(_req, res, next) {
   try {
@@ -44,7 +44,7 @@ async function getAll(_req, res, next) {
   } catch (error) {
     next(error);
   }
-};
+}
 
 async function update(req, res, next) {
 try {
@@ -57,7 +57,7 @@ try {
 } catch (error) {
   next(error);
 }
-};
+}
 
 async function deleteOrder(req, res, next) {
   try {
@@ -67,7 +67,7 @@ async function deleteOrder(req, res, next) {
   } catch (error) {
     next(error);
   }
-};
+}
 
 module.exports = {
   getByUserId,

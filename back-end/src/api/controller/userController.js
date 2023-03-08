@@ -4,7 +4,7 @@ async function register(req, res, next) {
   try {
     const { name, email, password } = req.body;
 
-    const {id, token} = await userService.register({ name, email, password });
+    const { id, token } = await userService.register({ name, email, password });
 
     return res.status(201).json({ id, name, email, token, role: 'customer' });
   } catch (error) {

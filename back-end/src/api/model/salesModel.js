@@ -1,4 +1,4 @@
-const { sequelize } = require('../../database/models/index');
+// const { sequelize } = require('../../database/models/index');
 const { sales, products, users, salesProducts } = require('../../database/models');
 
 const create = async (data) => {
@@ -8,9 +8,8 @@ const create = async (data) => {
       await data.products.map(async (p) => salesProducts.create({ 
           saleId: sale.id,
           productId: p.productId,
-          quantity: p.quantity
-        })
-      );
+          quantity: p.quantity,
+        }));
       return sale;
     // });
     // return result;
@@ -33,7 +32,7 @@ const getOneByUserId = async (userId, orderId) => sales.findOne({
   include: [
     { model: products, as: 'products', through: { attributes: [] } },
     { model: users, as: 'seller' },
-  ]
+  ],
 });
 
 const update = async (id, data) => {

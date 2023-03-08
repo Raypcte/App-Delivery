@@ -8,6 +8,9 @@ function OrderDetailsCard({
   products,
   seller,
 }) {
+  const handleClick = () => {
+
+  };
   return (
     <div>
       <div>
@@ -28,7 +31,7 @@ function OrderDetailsCard({
         </h4>
         <button
           type="button"
-          onClick=""
+          onClick={ handleClick }
         >
           Marcar como entregue
         </button>
@@ -45,7 +48,7 @@ function OrderDetailsCard({
         </thead>
         <tbody>
           { products.map((product, index) => {
-            const quantity = products.find((e) => e.id === id).length;
+            const quantity = products.filter((e) => e.id === product.id).length;
             return (
               <tr key={ index }>
                 <td
@@ -76,7 +79,7 @@ function OrderDetailsCard({
                   data-testid={ `customer_order_details__element
                 -order-table-sub-total-${index}` }
                 >
-                  { product.price * quantity }
+                  { parseFloat(product.price) * quantity }
                 </td>
               </tr>
             );

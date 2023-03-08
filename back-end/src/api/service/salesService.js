@@ -10,13 +10,13 @@ const getByUserId = async (id) => {
 };
 
 const getOneByUserId = async (userId, orderId) => {
-  const [order] = await ordersModel.getOneByUserId(Number(userId), Number(orderId));
+  const order = await ordersModel.getOneByUserId(Number(userId), Number(orderId));
   if (!order) throw new NotFoundError('usuário sem pedidos cadastrados');
   return order;
 };
 
 const create = async (data) => {
-  if (!data.status || !data.date || !data.price) throw new BadRequestError('dados inválidos');
+  // if (!data.status || !data.date || !data.price) throw new BadRequestError('dados inválidos');
   const result = await ordersModel.create(data);
   return result;
 };

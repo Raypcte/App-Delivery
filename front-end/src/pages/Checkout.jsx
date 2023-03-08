@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../utils/axiosIstance';
 
 function Checkout() {
   const [products, setProducts] = useState([]);
@@ -15,7 +15,7 @@ function Checkout() {
     setProducts(productsCar || []);
 
     const getSellers = async () => {
-      const response = await axios.get('http://localhost:3001/register?role=seller');
+      const response = await axios.get('register?role=seller');
       setSellers(response.data);
       setSellerId(response.data[0].id);
     };
@@ -32,17 +32,19 @@ function Checkout() {
   };
 
   const finishSale = async () => {
-    const userId = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('user'));
     const sale = {
-      userId: userId.id || 1,
+      userId: user.id,
       sellerId,
       totalPrice: total(products),
       deliveryAddress,
       deliveryNumber,
+      status: 'pending',
+      products: products.map(({ id: productId, quantity }) => ({ productId, quantity })),
     };
 
-    const actualSale = await axios.post('http://localhost:3001/sales', sale);
-    console.log(actualSale);
+    const actualSale = await axios.post('sales', sale);
+    // console.log(actualSale);
     navigate(`/customer/orders/${actualSale.data.id}`);
   };
 

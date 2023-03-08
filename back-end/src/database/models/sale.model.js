@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamps: false,
   });
 
-  sales.associate = ({ users, products }) => {
+  sales.associate = ({ users, products, salesProducts }) => {
     sales.belongsTo(users, { foreignKey: 'userId', as: 'custumer' });
     sales.belongsTo(users, { foreignKey: 'sellerId', as: 'seller' });
 
@@ -62,13 +62,13 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'saleId',
       otherKey: 'productId',
       as: 'products',
-      through: 'sales_products',
-    })
+      through: salesProducts,
+    });
     products.belongsToMany(sales, { 
       foreignKey: 'productId',
       otherKey: 'saleId',
       as: 'sale',
-      through: 'sales_products',
+      through: salesProducts,
     });
   }
 

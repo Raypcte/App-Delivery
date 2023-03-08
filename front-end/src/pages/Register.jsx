@@ -30,7 +30,7 @@ function Register() {
   }, [name, email, password, error, validateData]);
 
   const saveUser = (user) => {
-    localStorage.setItem('User', JSON.stringify({ ...user }));
+    localStorage.setItem('user', JSON.stringify({ ...user }));
   };
 
   const handleRegister = useCallback((e) => {

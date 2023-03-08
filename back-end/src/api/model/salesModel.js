@@ -1,6 +1,23 @@
-const { sales, products, users } = require('../../database/models');
+const { sequelize } = require('../../database/models/index');
+const { sales, products, users, salesProducts } = require('../../database/models');
 
-const create = async (data) => sales.create(data);
+const create = async (data) => {
+  try {
+    // const result = await sequelize.transaction(async (t) => {
+      const sale = await sales.create(data);
+      await data.products.map(async (p) => salesProducts.create({ 
+          saleId: sale.id,
+          productId: p.productId,
+          quantity: p.quantity
+        })
+      );
+      return sale;
+    // });
+    // return result;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const findAll = async () => sales.findAll();
 
@@ -11,7 +28,7 @@ const getByUserId = async (id) => sales.findAll({
   include: { model: products, as: 'products', through: { attributes: [] } },
 });
 
-const getOneByUserId = async (userId, orderId) => sales.findAll({ 
+const getOneByUserId = async (userId, orderId) => sales.findOne({ 
   where: { userId, id: orderId },
   include: [
     { model: products, as: 'products', through: { attributes: [] } },

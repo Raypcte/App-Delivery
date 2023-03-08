@@ -37,6 +37,7 @@ const register = async (user) => {
   try {
     await userModel.register({ ...user, password: md5(user.password) });
   } catch (error) {
+    console.log(error);
     throw new ConflictError('Nome ou email indisponíveis');
   }
 
@@ -44,7 +45,7 @@ const register = async (user) => {
 
   if (!newUser) throw new NotFoundError('usuário não encontrado');
 
-  return generateToken(newUser);
+  return { token: generateToken(newUser), id: newUser.id };
 };
 
 const login = async (credentials) => {

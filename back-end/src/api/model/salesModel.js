@@ -30,8 +30,8 @@ const getByUserId = async (id) => sales.findAll({
 const getOneByUserId = async (userId, orderId) => sales.findOne({ 
   where: { userId, id: orderId },
   include: [
-    { model: products, as: 'products', through: { attributes: [] } },
-    { model: users, as: 'seller' },
+    { model: products, as: 'products', through: { attributes: ['quantity'] } },
+    { model: users, as: 'seller', attributes: ['id', 'name', 'email'] },
   ],
 });
 

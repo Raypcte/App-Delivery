@@ -47,43 +47,40 @@ function OrderDetailsCard({
           </tr>
         </thead>
         <tbody>
-          { products.map((product, index) => {
-            const quantity = products.filter((e) => e.id === product.id).length;
-            return (
-              <tr key={ index }>
-                <td
-                  data-testid={ `customer_order_details__element
+          { products.map((product, index) => (
+            <tr key={ index }>
+              <td
+                data-testid={ `customer_order_details__element
 -order-table-item-number-${index}` }
-                >
-                  { index + 1 }
-                </td>
-                <td
-                  data-testid={ `customer_order_details__element
+              >
+                { index + 1 }
+              </td>
+              <td
+                data-testid={ `customer_order_details__element
 -order-table-name-${index}` }
-                >
-                  { product.name }
-                </td>
-                <td
-                  data-testid={ `customer_order_details__element
+              >
+                { product.name }
+              </td>
+              <td
+                data-testid={ `customer_order_details__element
                 -order-table-quantity-${index}` }
-                >
-                  { quantity }
-                </td>
-                <td
-                  data-testid={ `customer_order_details__element
+              >
+                { product.salesProducts.quantity }
+              </td>
+              <td
+                data-testid={ `customer_order_details__element
 -order-table-unit-price-${index}` }
-                >
-                  { product.price }
-                </td>
-                <td
-                  data-testid={ `customer_order_details__element
+              >
+                { product.price }
+              </td>
+              <td
+                data-testid={ `customer_order_details__element
 -order-table-sub-total-${index}` }
-                >
-                  { parseFloat(product.price) * quantity }
-                </td>
-              </tr>
-            );
-          }) }
+              >
+                { parseFloat(product.price) * Number(product.salesProducts.quantity) }
+              </td>
+            </tr>
+          )) }
         </tbody>
       </table>
       <h4

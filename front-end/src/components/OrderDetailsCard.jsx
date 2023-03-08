@@ -22,7 +22,8 @@ function OrderDetailsCard({
           { `Vendedor: ${seller.name}` }
         </h4>
         <h4 data-testid="customer_order_details__element-order-details-label-order-date">
-          { saleDate }
+          { new Date(saleDate)
+            .toLocaleString('pt-BR', { timeZone: 'UTC' }).split(',')[0]}
         </h4>
         <h4
           data-testid={ statusId }

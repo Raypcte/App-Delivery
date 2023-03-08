@@ -26,7 +26,8 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
             <td
               data-testid={ `customer_orders__element-order-date-${id}` }
             >
-              { saleDate }
+              { new Date(saleDate)
+                .toLocaleString('pt-BR', { timeZone: 'UTC' }).split(',')[0] }
             </td>
             <td
               data-testid={ `customer_orders__element-card-price-${id}` }

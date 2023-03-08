@@ -12,6 +12,22 @@ function Login() {
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      switch (user.role) {
+      case 'customer':
+        navigate('/customer/products');
+        break;
+      case 'seller':
+        navigate('/seller/*');
+        break;
+      default:
+        break;
+      }
+    }
+  }, []);
+
   const validateLogin = useCallback(() => {
     const minPassLength = 6;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -77,7 +93,7 @@ function Login() {
           data-testid="common_login__button-login"
           type="submit"
           disabled={ isDisabled }
-          onClick={ handleLogin }
+          onClick={ (e) => handleLogin(e) }
         >
           Login
         </button>

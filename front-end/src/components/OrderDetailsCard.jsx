@@ -74,7 +74,7 @@ function OrderDetailsCard({
                 data-testid={ `customer_order_details__element
 -order-table-unit-price-${index}` }
               >
-                { product.price }
+                { product.price.replace('.', ',') }
               </td>
               <td
                 data-testid={ `customer_order_details__element

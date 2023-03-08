@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import CustumerProducts from './pages/CustomerProducts';
 import Register from './pages/Register';
@@ -9,28 +9,28 @@ import CustomerOrders from './pages/customerOrders';
 import OrderDetails from './pages/OrderDetails';
 
 function App() {
-  const navigation = useNavigate();
-  const location = useLocation();
+  // const navigation = useNavigate();
+  // const location = useLocation();
 
-  const logOut = () => {
-    localStorage.clear('user');
-    return navigation('/login');
-  };
+  // const logOut = () => {
+  //   localStorage.clear('user');
+  //   return navigation('/login');
+  // };
 
-  const isLogged = async () => {
-    try {
-      const info = JSON.parse(localStorage.getItem('user'));
-      if (!info
-        && (location.pathname !== '/register' || location.pathname !== '/login')
-      ) return logOut();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const isLogged = async () => {
+  //   try {
+  //     const info = JSON.parse(localStorage.getItem('user'));
+  //     if (!info
+  //       && (location.pathname !== '/register' || location.pathname !== '/login')
+  //     ) return logOut();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    isLogged();
-  }, []);
+  // useEffect(() => {
+  //   isLogged();
+  // }, []);
 
   return (
     <MyProvider>

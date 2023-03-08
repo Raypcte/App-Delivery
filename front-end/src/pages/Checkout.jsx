@@ -43,7 +43,8 @@ function Checkout() {
       products: products.map(({ id: productId, quantity }) => ({ productId, quantity })),
     };
 
-    const actualSale = await axios.post('sales', sale);
+    const actualSale = await axios.post('sales', sale)
+      .headers({ Authorization: user.token });
     // console.log(actualSale);
     navigate(`/customer/orders/${actualSale.data.id}`);
   };
@@ -77,7 +78,7 @@ function Checkout() {
                     `customer_checkout__element-order-table-item-number-${index}`
                   }
                 >
-                  {item.id}
+                  { index + 1 }
                 </td>
                 <td
                   data-testid={

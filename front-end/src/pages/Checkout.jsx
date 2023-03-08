@@ -43,9 +43,9 @@ function Checkout() {
       products: products.map(({ id: productId, quantity }) => ({ productId, quantity })),
     };
 
-    const actualSale = await axios.post('sales', sale)
-      .headers({ Authorization: user.token });
-    // console.log(actualSale);
+    const actualSale = await axios
+      .post('http://localhost:3001/sales', sale, { headers: { Authorization: JSON.parse(localStorage.getItem('user')).token } });
+    console.log(actualSale);
     navigate(`/customer/orders/${actualSale.data.id}`);
   };
 
@@ -77,8 +77,9 @@ function Checkout() {
                   data-testid={
                     `customer_checkout__element-order-table-item-number-${index}`
                   }
+
                 >
-                  { index + 1 }
+                  {index + 1 }
                 </td>
                 <td
                   data-testid={
@@ -106,7 +107,7 @@ function Checkout() {
                     `customer_checkout__element-order-table-sub-total-${index}`
                   }
                 >
-                  {item.totalPrice}
+                  {item.totalPrice.toFixed(2).replace('.', ',')}
                 </td>
                 <td>
                   <button
@@ -125,7 +126,7 @@ function Checkout() {
         </tbody>
       </table>
       <h1 data-testid="customer_checkout__element-order-total-price">
-        {`Total: ${total(products).toFixed(2)}`}
+        {`Total: ${total(products).toFixed(2).replace('.', ',')}`}
       </h1>
       <h2>Detalhes e  Endereço para Entrega</h2>
       <form>

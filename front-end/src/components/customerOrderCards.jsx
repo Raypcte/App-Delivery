@@ -20,20 +20,20 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
               {id}
             </td>
             <td
-              data-testid={ `customer_orders__
-                        element-delivery-status-${id}` }
+              data-testid={ `customer_orders__element-delivery-status-${id}` }
             >
               {status}
             </td>
             <td
               data-testid={ `customer_orders__element-order-date-${id}` }
             >
-              { saleDate }
+              { new Date(saleDate)
+                .toLocaleString('pt-BR', { timeZone: 'UTC' }).split(',')[0] }
             </td>
             <td
               data-testid={ `customer_orders__element-card-price-${id}` }
             >
-              {totalPrice}
+              {totalPrice.replace('.', ',')}
             </td>
           </tr>
         </tbody>

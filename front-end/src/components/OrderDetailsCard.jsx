@@ -66,7 +66,7 @@ function OrderDetailsCard({
               </td>
               <td
                 data-testid={ `customer_order_details__element
-                -order-table-quantity-${index}` }
+-order-table-quantity-${index}` }
               >
                 { product.salesProducts.quantity }
               </td>

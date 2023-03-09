@@ -10,9 +10,6 @@ import Checkout from './pages/Checkout';
 import OrderDetails from './pages/OrderDetails';
 
 function App() {
-  // const navigation = useNavigate();
-  // const location = useLocation();
-
   // const logOut = () => {
   //   localStorage.clear('user');
   //   return navigation('/login');

@@ -12,6 +12,6 @@ module.exports = (req, res, next) => {
     if (data.role !== 'administrator') res.status(401).json({ message: 'Não autorizado' });
     next();
   } catch (error) {
-    next(error)
+    next(error);
   }
 };

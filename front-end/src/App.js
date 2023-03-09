@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import MyProvider from './context/MyProvider';
 import Login from './pages/Login';
+import CustomerOrders from './pages/customerOrders';
 import CustumerProducts from './pages/CustomerProducts';
 import Register from './pages/Register';
-import MyProvider from './context/MyProvider';
 import AdminManage from './pages/AdminManage';
 import Checkout from './pages/Checkout';
-import CustomerOrders from './pages/customerOrders';
 import OrderDetails from './pages/OrderDetails';
 
 function App() {

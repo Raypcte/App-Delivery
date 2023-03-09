@@ -9,13 +9,14 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
     <button
       key={ id }
       onClick={ () => navigate(`/customer/orders/${id}`) }
-      data-testid={ `customer_orders__element-order-id-${id}` }
       type="button"
     >
       <table>
         <tbody>
           <tr>
-            <td>
+            <td
+              data-testid={ `customer_orders__element-order-id-${id}` }
+            >
               {id}
             </td>
             <td
@@ -32,7 +33,7 @@ function OrderCard({ id, status, saleDate, totalPrice }) {
             <td
               data-testid={ `customer_orders__element-card-price-${id}` }
             >
-              {totalPrice}
+              {totalPrice.replace('.', ',')}
             </td>
           </tr>
         </tbody>

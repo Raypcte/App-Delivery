@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import MyProvider from './context/MyProvider';
+import Login from './pages/Login';
 import CustomerOrders from './pages/customerOrders';
 import CustumerProducts from './pages/CustomerProducts';
 import Register from './pages/Register';
@@ -36,6 +37,7 @@ function App() {
     <MyProvider>
       <div>
         <Routes>
+          <Route path="/login" element={ <Login /> } />
           <Route path="/" element={ <Navigate to="/login" replace /> } />
           <Route path="/register" element={ <Register /> } />
           <Route path="/customer/products" element={ <CustumerProducts /> } />

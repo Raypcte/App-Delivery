@@ -1,4 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+import axios from '../utils/axiosIstance';
 
 export default function AdminFormRegister() {
   const [isDisabled, setIsDisabled] = useState(true);
@@ -27,12 +28,14 @@ export default function AdminFormRegister() {
     setRole('custumer');
   };
 
-  const handleClick = (event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
+    const { token } = JSON.parse(localStorage.getItem('user'));
 
-    axios.post('register', { name, email, password, role })
-      .then(() => clearInputs())
-      .catch((err) => setError({ error: err }));
+    await axios.post('admin/register', { name, email, password, role }, {
+      headers: { Authorization: token },
+    });
+    clearInputs();
   };
 
   const handleChange = ({ target }) => {
@@ -42,10 +45,6 @@ export default function AdminFormRegister() {
     if (target.name === 'role') setRole(target.value);
     validateData();
   };
-
-  useEffect(() => {
-    console.log('a');
-  }, []);
 
   return (
     <form>

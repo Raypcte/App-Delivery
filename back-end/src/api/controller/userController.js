@@ -12,6 +12,18 @@ async function register(req, res, next) {
   }
 }
 
+async function registerAdmin(req, res, next) {
+  try {
+    const { name, email, password, role } = req.body;
+    
+    await userService.register({ name, email, password, role });
+
+    return res.status(201).json({ message: 'Usuário cadastrado com sucesso'})
+  } catch (error) {
+    next(error)
+  }
+}
+
 async function login(req, res, next) {
   try {
     const { email, password } = req.body;
@@ -39,4 +51,5 @@ module.exports = {
   register,
   login,
   getRole,
+  registerAdmin,
 };

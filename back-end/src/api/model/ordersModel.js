@@ -16,8 +16,8 @@ const getOneByUserId = async (userId, orderId) => sales.findAll({
   include: [
     { model: products, as: 'products', through: { attributes: [] } },
     { model: users, as: 'custumer' },
-    { model: users, as: 'seller' }
-  ]
+    { model: users, as: 'seller' },
+  ],
 });
 
 const update = async (id, data) => {

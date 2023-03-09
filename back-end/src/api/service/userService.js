@@ -3,8 +3,8 @@ const BadRequestError = require('../error/badRequestError');
 const NotFoundError = require('../error/notFoundError');
 const UnauthorizedError = require('../error/unauthorizedError');
 const ConflictError = require('../error/conflictError');
-const { jwtAuthenticate } = require('../auth/jwt');
 const userModel = require('../model/userModel');
+const { jwtAuthenticate } = require('../auth/jwt');
 
 const validateCredentials = (user) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -37,7 +37,6 @@ const register = async (user) => {
   try {
     await userModel.register({ ...user, password: md5(user.password) });
   } catch (error) {
-    console.log(error);
     throw new ConflictError('Nome ou email indisponíveis');
   }
 

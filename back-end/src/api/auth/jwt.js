@@ -21,7 +21,6 @@ const jwtAuthenticate = (user) => {
 
 // usada para validar acesso a rotas. Retorna as informações do usuário salvas no token
 const jwtDecript = async (token) => {
-  console.log(secret)
   try {
     const user = await jwt.verify(token, secret);
     return user.data;
@@ -29,9 +28,6 @@ const jwtDecript = async (token) => {
     throw new InternalError('erro ao ler token');
   }
 };
-
-
-
 
 module.exports = {
   jwtAuthenticate,

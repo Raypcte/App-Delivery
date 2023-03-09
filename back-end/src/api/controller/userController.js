@@ -18,9 +18,9 @@ async function registerAdmin(req, res, next) {
     
     await userService.register({ name, email, password, role });
 
-    return res.status(201).json({ message: 'Usuário cadastrado com sucesso'})
+    return res.status(201).json({ message: 'Usuário cadastrado com sucesso' });
   } catch (error) {
-    next(error)
+    next(error);
   }
 }
 

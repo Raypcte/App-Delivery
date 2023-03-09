@@ -3,8 +3,8 @@ const BadRequestError = require('../error/badRequestError');
 const NotFoundError = require('../error/notFoundError');
 const UnauthorizedError = require('../error/unauthorizedError');
 const ConflictError = require('../error/conflictError');
-const { jwtAuthenticate, jwtDecript } = require('../auth/jwt');
 const userModel = require('../model/userModel');
+const { jwtAuthenticate } = require('../auth/jwt');
 
 const validateCredentials = (user) => {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

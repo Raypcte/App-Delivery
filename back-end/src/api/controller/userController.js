@@ -15,7 +15,7 @@ async function register(req, res, next) {
 async function registerAdmin(req, res, next) {
   try {
     const { name, email, password, role } = req.body;
-    
+    console.log(name, email, password, role);
     await userService.register({ name, email, password, role });
 
     return res.status(201).json({ message: 'Usuário cadastrado com sucesso' });

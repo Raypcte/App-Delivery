@@ -6,7 +6,7 @@ export default function AdminFormRegister() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('custumer');
+  const [role, setRole] = useState('customer');
   const [isError, setIsError] = useState(false);
 
   const validateData = useCallback(() => {
@@ -26,7 +26,7 @@ export default function AdminFormRegister() {
     setEmail('');
     setName('');
     setPassword('');
-    setRole('custumer');
+    setRole('customer');
   };
 
   const handleClick = async (event) => {
@@ -103,7 +103,7 @@ export default function AdminFormRegister() {
             onChange={ handleChange }
             data-testid="admin_manage__select-role"
           >
-            <option value="custumer">Cliente</option>
+            <option value="customer">Cliente</option>
             <option value="seller">Vendedor</option>
             <option value="administrator">Administrador</option>
           </select>

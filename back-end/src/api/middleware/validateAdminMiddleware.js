@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-const userService = require('../service/userService')
+const userService = require('../service/userService');
 
 const secret = fs.readFileSync('./jwt.evaluation.key', { encoding: 'utf-8' });
 
@@ -12,7 +12,7 @@ module.exports = async (req, res, next) => {
     const { data } = jwt.verify(token, secret);
     
     const user = await userService.findById(data.id);
-    if (!user) return res.status(400).json({ message: 'usuário não encontrado' })
+    if (!user) return res.status(400).json({ message: 'usuário não encontrado' });
 
     if (data.role !== 'administrator') res.status(401).json({ message: 'Não autorizado' });
     next();

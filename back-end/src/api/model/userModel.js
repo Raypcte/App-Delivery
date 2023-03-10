@@ -20,9 +20,15 @@ const findByRole = async (role) => {
   return person;
 };
 
+const findAll = async () => users.findAll({ attributes: { exclude: ['password'] } });
+
+const deleteUser = async (id) => users.destroy({ where: { id } });
+
 module.exports = {
   register,
   findByEmail,
   findById,
   findByRole,
+  findAll,
+  deleteUser,
 };

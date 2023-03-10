@@ -66,10 +66,16 @@ const findByRole = async (role) => {
   return user;
 };
 
+const findAll = async () => userModel.findAll();
+
+const deleteUser = async (id) => userModel.deleteUser(id);
+
 module.exports = {
   findByEmail,
   findById,
   register,
   login,
   findByRole,
+  findAll,
+  deleteUser,
 };
